@@ -10,3 +10,4 @@
 ##Resources
 * [Basic Git Guide](https://docs.google.com/document/d/1gl7os_eQMcJXWBPao8XrfEMA5JAJ4TRZFSFmwL1ahDU/edit)
 * [Github Client](https://windows.github.com/)
+* [Current Issues](https://github.com/adamus1red/yolo-octo-adventure/issues)
