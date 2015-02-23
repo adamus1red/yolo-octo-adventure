@@ -23,7 +23,7 @@ public class Ball {
 	public Ball(double x, double y, double xv, double yv) {
 		xpos = x; // Centre coordinates
 		ypos = y;
-		colour = Color.RED;
+		colour = Color.BLUE;
 		velocity = new Vect(xv, yv);
 		radius = 10;
 		stopped = false;

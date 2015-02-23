@@ -15,6 +15,7 @@ import physics.Vect;
 public class Model extends Observable {
 
 	private ArrayList<VerticalLine> lines;
+	private ArrayList<IGizmo> gizmos;
 	private Ball ball;
 	private Walls gws;
 
@@ -28,6 +29,9 @@ public class Model extends Observable {
 
 		// Lines added in Main
 		lines = new ArrayList<VerticalLine>();
+		
+		//Gizmos added
+		gizmos = new ArrayList<IGizmo>();
 	}
 
 	public void moveBall() {
@@ -98,6 +102,12 @@ public class Model extends Observable {
 				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
 			}
 		}
+		
+		//Time to collide with a gizmo
+//		for (IGizmo giz : gizmos){
+//			time = Geometry.timeUntilWallCollision(line, ball, velocity)
+//		}
+		
 		return new CollisionDetails(shortestTime, newVelo);
 	}
 
@@ -109,15 +119,19 @@ public class Model extends Observable {
 		return lines;
 	}
 
-	public void addLine(VerticalLine verticalLine){
-		lines.add(verticalLine);
+	public void addLine(VerticalLine l) {
+		lines.add(l);
 	}
-	
-	//public void addHorizontalLine(HorizontalLine horizontalLine) {
-	//	lines.add(horizontalLine);
-	//}
 
 	public void setBallSpeed(int x, int y) {
 		ball.setVelo(new Vect(x, y));
 	}
+	
+	public void addGizmo(IGizmo g){
+	gizmos.add(g);
+}
+
+public ArrayList<IGizmo> getGizmos(){
+	return gizmos;
+}
 }

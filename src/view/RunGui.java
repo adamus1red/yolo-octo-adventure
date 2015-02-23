@@ -23,7 +23,7 @@ public class RunGui {
 	private Model model;
 	private JFrame frame;
 	private ActionListener listener;
-	private Board board;
+	private RunBoard board;
 
 	public RunGui(Model m) {
 		model = m;
@@ -36,9 +36,10 @@ public class RunGui {
 
 		frame = new JFrame("Murray's MIT Ball and VerticalLine Collision Demo");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);		//added so that the frame size cant be adjusted
 
 		// Board is passed the Model so it can act as Observer
-		board = new Board(500, 500, model);
+		board = new RunBoard(500, 500, model);
 
 		Container cp = frame.getContentPane();
 

@@ -1,60 +1,52 @@
 package controller;
 
-import model.Giz;
+import java.util.StringTokenizer;
+
+import model.Gizmo;
 
 public class Parser {
-	private Giz g;
+	private Gizmo g;
+
 	public Parser() {
-		g = new Giz();
+		g = new Gizmo();
 	}
 
-	public Giz parse(String s) throws Exception {
-		
-		String[] sSplit = s.split("\\s+");
-		if (sSplit[0] != "\\n" && s != null) {
-			
+	public Gizmo parse(String s) throws Exception {
+
+		String[] st = s.split("\\s");
+		if (st[0] != null) {
+			checkType(st[0]); 
 		} else {
 			return null;
 		}
 		return g;
 	}
+
 	/*
-	 * <gizmoOp> <name> <int-pair> |
-	 * Absorber <name> <int-pair> <int-pair> |
-	 * Ball <name> <float-pair> <float-pair> |
-	 * Rotate <name> |
-	 * Delete <name> |
-	 * Move <name> <number-pair> |
-	 * Connect <name> <name> |
-	 * KeyConnect <keyid> <name> |
-	 * 	<gizmoOp> ::= Square | Circle | Triangle | RightFlipper | LeftFlipper
+	 * <gizmoOp> <name> <int-pair> | Absorber <name> <int-pair> <int-pair> |
+	 * Ball <name> <float-pair> <float-pair> | Rotate <name> | Delete <name> |
+	 * Move <name> <number-pair> | Connect <name> <name> | KeyConnect <keyid>
+	 * <name> | 
+	 * <gizmoOp> ::= Square | Circle | Triangle | RightFlipper |
+	 * LeftFlipper
 	 */
 
-	private int getXCooord(String s) {
-		// TODO Auto-generated method stub
-		return Integer.parseInt(s);
-	}
-	private int getYCooord(String s) {
-		// TODO Auto-generated method stub
-		return Integer.parseInt(s);
-	}
-
 	private String getGizmoType(String s) {
-		if(checkType(s) != null){
-			return checkType(s); 
+		if (checkType(s) != null) {
+			g.setType(checkType(s));
 		} else {
-			
+
 		}
 		return s;
 	}
-	
+
 	private String checkType(String string) {
 		if (string.toUpperCase().equals("CIRCLE")) {
 			return "Circle";
 		} else if (string.toUpperCase().equals("TRIANGLE")) {
 			return "Triangle";
 		} else if (string.toUpperCase().equals("SQUARE")) {
-			return "Squrare";
+			return "Square";
 		} else if (string.toUpperCase().equals("LEFTFLIPPER")) {
 			return "Flipper";
 		} else if (string.toUpperCase().equals("RIGHTFLIPPER")) {

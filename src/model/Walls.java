@@ -8,7 +8,7 @@ import physics.LineSegment;
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
  */
 
-public class Walls {
+public class Walls extends Gizmo {
 
 	private int xpos1;
 	private int ypos1;

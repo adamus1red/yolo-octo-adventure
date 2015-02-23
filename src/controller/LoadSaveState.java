@@ -6,15 +6,15 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
-import model.Gizmo;
+import model.IGizmo;
 
 public class LoadSaveState {
 
-	private ArrayList<Gizmo> fRead;
+	private ArrayList<IGizmo> fRead;
 	private Parser parser;
 
 	public LoadSaveState() {
-		fRead = new ArrayList<Gizmo>();
+		fRead = new ArrayList<IGizmo>();
 		parser = new Parser();
 	}
 
@@ -65,11 +65,11 @@ public class LoadSaveState {
 		return fCheck.canRead();
 	}
 
-	public ArrayList<Gizmo> getfRead() {
+	public ArrayList<IGizmo> getfRead() {
 		return fRead;
 	}
 
-	public void setfRead(ArrayList<Gizmo> fRead) {
+	public void setfRead(ArrayList<IGizmo> fRead) {
 		this.fRead = fRead;
 	}
 

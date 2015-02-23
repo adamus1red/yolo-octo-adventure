@@ -2,14 +2,9 @@ package main;
 
 import javax.swing.UIManager;
 
-import model.HorizontalLine;
+import model.Absorber;
 import model.Model;
-import model.VerticalLine;
 import view.RunGui;
-
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
 
 public class Main {
 
@@ -23,14 +18,9 @@ public class Main {
 
 		Model model = new Model();
 
-		model.setBallSpeed(300, 200);
-
-		// Vertical line at (100,100), width 300
-		model.addLine(new VerticalLine(00, 00, 00, 00));
-		
-		model.addLine(new VerticalLine(100,100,1, 300));
-	//	model.addLine(new HorizontalLine(100,100,300,1));
-		
+		// originally set at (200, 200)
+		model.setBallSpeed(175, 175);
+		model.addGizmo(new Absorber(0, 470, 500, 30));
 
 		RunGui gui = new RunGui(model);
 		gui.createAndShowGUI();
