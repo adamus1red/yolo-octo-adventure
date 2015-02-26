@@ -10,7 +10,7 @@ public interface IGizmo {
 
 	void setWidth(int w);
 
-	void seXPos(int x);
+	void setXPos(int x);
 
 	void setYPos(int y);
 

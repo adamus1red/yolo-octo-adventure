@@ -2,27 +2,31 @@ package model;
 
 import java.awt.Color;
 
+import physics.Circle;
+import physics.LineSegment;
+
 public class Absorber implements IGizmo {
 	private int xPos;
 	private int yPos;
 	private int width;
 	private int height;
 	private Color color;
-//	private Circle crcl;
-//	private Shape absorber;
+	
 
-	public Absorber(int x, int y, int w, int h) {
+	public Absorber(int x, int y, int w, Model m) {
 		this.xPos = x;
 		this.yPos = y;
-		this.height = h;
 		this.width = w;
+		this.height = 30;
 		this.color = Color.ORANGE;
-//		this.absorber = new Rectangle(x, y, w, h);
+		m.addLine(new VerticalLine(x, y, w));
+		m.addLine(new VerticalLine(x, y + w, w));
+		
 		// for ends of the lines in the absorber
-//		this.crcl = new Circle(x, x, 0);
-//		this.crcl = new Circle(y, y, 0);
-//		this.crcl = new Circle(x, x + w, 0);
-//		this.crcl = new Circle(y, y + h, 0);
+		Circle tl = new Circle(x, y, 10);
+		Circle tr = new Circle(x, w, 0);
+		Circle bl = new Circle(y, w, 0);
+		Circle br  = new Circle(w, w, 0);
 	}
 
 	@Override
@@ -31,7 +35,7 @@ public class Absorber implements IGizmo {
 	}
 
 	@Override
-	public void seXPos(int x) {
+	public void setXPos(int x) {
 		xPos = x;
 	}
 
@@ -74,5 +78,4 @@ public class Absorber implements IGizmo {
 	public int getHeight() {
 		return height;
 	}
-
 }
