@@ -1,7 +1,6 @@
 package model;
 
 import physics.LineSegment;
-import physics.Vect;
 
 public class VerticalLine {
 
@@ -10,14 +9,13 @@ public class VerticalLine {
 	private int width;
 	private int height;
 	private LineSegment l;
-	private LineSegment lH;
 
-	public VerticalLine(int x, int y, int w) {
+	public VerticalLine(int x, int y, int w, int h) {
 		xpos = x;
 		ypos = y;
 		width = w;
 		height = 1;
-		l = new LineSegment(x, y, x + w, y);
+		l = new LineSegment(x, y, x + w, y + h);
 	}
 
 	public LineSegment getLineSeg() {

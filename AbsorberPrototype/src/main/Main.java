@@ -2,13 +2,9 @@ package main;
 
 import javax.swing.UIManager;
 
-import physics.Angle;
-import physics.Circle;
-import physics.LineSegment;
-import physics.Vect;
 import model.Absorber;
+import model.Flipper;
 import model.Model;
-import model.VerticalLine;
 import view.RunGui;
 
 public class Main {
@@ -26,10 +22,18 @@ public class Main {
 
 		Model model = new Model();
 
+		// 1L = 25
+		
 		// originally set at (200, 200)
 		model.setBallSpeed(175, 175);
-		model.addGizmo(new Absorber(0, 470, 500, model));
-//		model.addLine(new VerticalLine(100, 370, 300));
+		
+		// add absorder
+		model.addGizmo(new Absorber(0, 475, 500, model));
+		model.addGizmo(new Absorber(100, 100, 300, model));
+		
+		// add flipper
+		model.addGizmo(new Flipper(100, 300, 15, model));
+		model.addGizmo(new Flipper(300, 300, 15, model));
 
 		RunGui gui = new RunGui(model);
 		gui.createAndShowGUI();

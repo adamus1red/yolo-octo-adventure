@@ -16,12 +16,14 @@ public class Model extends Observable {
 
 	private ArrayList<VerticalLine> lines;
 	private ArrayList<IGizmo> gizmos;
+	private ArrayList<Circle> circles;
 	private Ball ball;
 	private Walls gws;
 
 	public Model() {
 
-		// Ball position (250, 25) in pixels. Ball velocity (100, 100) pixels per
+		// Ball position (250, 25) in pixels. Ball velocity (100, 100) pixels
+		// per
 		// tick
 		ball = new Ball(250, 25, 100, 100);
 
@@ -33,6 +35,9 @@ public class Model extends Observable {
 
 		// Gizmos added
 		gizmos = new ArrayList<IGizmo>();
+
+		// circles added
+		circles = new ArrayList<Circle>();
 	}
 
 	public void moveBall() {
@@ -66,9 +71,9 @@ public class Model extends Observable {
 		double newY = 0.0;
 		double xVel = ball.getVelo().x();
 		double yVel = ball.getVelo().y();
-//		newX = ball.getExactX() + (xVel * time);// changed these so that ball falls
+		newX = ball.getExactX() + (xVel * time);
 		newY = ball.getExactY() + (yVel * time);
-//		ball.setExactX(newX); //CHANGED
+		ball.setExactX(newX);
 		ball.setExactY(newY);
 		return ball;
 	}
@@ -103,17 +108,9 @@ public class Model extends Observable {
 					.timeUntilWallCollision(ls, ballCircle, ballVelocity);
 			if (time < shortestTime) {
 				shortestTime = time;
-				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 2.5);//changed to 2.5 original = 1.0		
-//				ball = new Ball(470, 470, 25.0, 25.0);//cahnged
-//				double newX = ball.getExactX() + (ball.getVelo().x() * time);
-//				ball.setExactX(newX); 
-				}
+				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
+			}
 		}
-
-//		 //Time to collide with a gizmo
-//		 for (IGizmo giz : gizmos){
-//		 time = Geometry.timeUntilWallCollision(line, ball, velocity)
-//		 }
 
 		return new CollisionDetails(shortestTime, newVelo);
 	}
@@ -140,5 +137,13 @@ public class Model extends Observable {
 
 	public ArrayList<IGizmo> getGizmos() {
 		return gizmos;
+	}
+	
+	public ArrayList<Circle> getCircles(){
+		return circles;
+	}
+	
+	public void addCircles(Circle c){
+		circles.add(c);
 	}
 }
