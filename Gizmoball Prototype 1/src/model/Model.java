@@ -10,9 +10,7 @@ import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
+
 
 public class Model extends Observable {
 
@@ -25,7 +23,7 @@ public class Model extends Observable {
 	public Model() {
 
 		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball(50, 75, 200, 100);
+		ball = new Ball(50, 75, 250, 100);
 		
 
 		// Wall size 500 x 500 pixels
