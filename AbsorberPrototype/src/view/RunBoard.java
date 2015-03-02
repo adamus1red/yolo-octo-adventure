@@ -13,7 +13,6 @@ import model.IGizmo;
 import model.Model;
 
 public class RunBoard extends JPanel implements Observer {
-
 	private static final long serialVersionUID = 1L;
 	protected int width;
 	protected int height;
@@ -26,6 +25,7 @@ public class RunBoard extends JPanel implements Observer {
 		height = h;
 		gm = m;
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		this.setBackground(Color.BLACK);
 	}
 
 	// Fix onscreen size
@@ -37,21 +37,13 @@ public class RunBoard extends JPanel implements Observer {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
-		
-		// good flipper dimensions just adjust for dimesions for smaller ie 100 or 85 == 25 for last three
-//		g2.setColor(Color.BLUE);
-//		g2.fillRoundRect(60, 60, 85, 25, 25, 25);
-//		g2.fillRoundRect(100, 100, 85, 25, 25, 25);
-//		g2.fillOval(100, 100, 25, 25);
-//		g2.fillRoundRect(60, 60, 50, 12, 12, 12);
 
+		// draw created gizmos to the screen
 		for (IGizmo gz : gm.getGizmos()) {
 			g2.setColor(gz.getColor());
 			g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(), gz.getHeight());
-			// this is only here for testing and can be removed
 			g2.fillOval(gz.getXPos() - gz.getRadius() / 2, gz.getYPos()  - gz.getRadius() / 2, gz.getRadius(), gz.getRadius());
 		}
-
 
 		Ball b = gm.getBall();
 		if (b != null) {

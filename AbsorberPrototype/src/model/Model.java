@@ -2,15 +2,11 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Observable;
-
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
 
 public class Model extends Observable {
 
@@ -25,7 +21,7 @@ public class Model extends Observable {
 		// Ball position (250, 25) in pixels. Ball velocity (100, 100) pixels
 		// per
 		// tick
-		ball = new Ball(250, 25, 100, 100);
+		ball = new Ball(494, 494, 100, 100);
 
 		// Wall size 500 x 500 pixels
 		gws = new Walls(0, 0, 500, 500);
@@ -102,15 +98,15 @@ public class Model extends Observable {
 		}
 
 		// Time to collide with any vertical lines
-		for (VerticalLine line : lines) {
-			LineSegment ls = line.getLineSeg();
-			time = Geometry
-					.timeUntilWallCollision(ls, ballCircle, ballVelocity);
-			if (time < shortestTime) {
-				shortestTime = time;
-				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
-			}
-		}
+//		for (VerticalLine line : lines) {
+//			LineSegment ls = line.getLineSeg();
+//			time = Geometry
+//					.timeUntilWallCollision(ls, ballCircle, ballVelocity);
+//			if (time < shortestTime) {
+//				shortestTime = time;
+//				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
+//			}
+//		}
 
 		return new CollisionDetails(shortestTime, newVelo);
 	}

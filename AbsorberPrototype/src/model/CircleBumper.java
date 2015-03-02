@@ -8,7 +8,7 @@ public class CircleBumper implements IGizmo {
 	private int xPos;
 	private int yPos;
 	private Color color;
-	private int radius = 12;
+	private int radius = 25;
 	
 	public CircleBumper(int x, int y, Model m) {
 		this.xPos = x;

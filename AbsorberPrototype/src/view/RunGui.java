@@ -13,10 +13,8 @@ import javax.swing.JPanel;
 
 import model.Model;
 import controller.RunListener;
+import controller.SetKeyBoardListener;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
 
 public class RunGui {
 
@@ -24,17 +22,20 @@ public class RunGui {
 	private JFrame frame;
 	private ActionListener listener;
 	private RunBoard board;
+	private SetKeyBoardListener KBListener;
 
 	public RunGui(Model m) {
 		model = m;
 
 		// RunListener catches all GUI events. In reality might have many listeners.
 		listener = new RunListener(m);
+		KBListener =  new SetKeyBoardListener(m);
 	}
 
 	public void createAndShowGUI() {
 
 		frame = new JFrame("Absorber Prototype");
+		frame.addKeyListener(KBListener);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);		//added so that the frame size cant be adjusted
 

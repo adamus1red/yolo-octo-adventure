@@ -1,13 +1,9 @@
 package model;
 
 import java.awt.Color;
-
 import physics.Circle;
 import physics.Vect;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
 
 public class Ball {
 
@@ -25,7 +21,7 @@ public class Ball {
 		ypos = y;
 		colour = Color.BLUE;
 		velocity = new Vect(xv, yv);
-		radius = 10;
+		radius = 6;
 		stopped = false;
 	}
 
