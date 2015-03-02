@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.Color;
-
 import physics.Circle;
 
 public class Flipper implements IGizmo {
@@ -27,9 +26,9 @@ public class Flipper implements IGizmo {
 
 		// for ends of the lines 
 		m.addCircles(new Circle(x, y, radius));
-		m.addCircles(new Circle(x, width, radius));
-		m.addCircles(new Circle(y, width, radius));
-		m.addCircles(new Circle(width, width, radius));
+		m.addCircles(new Circle(x, y + height, radius));
+		m.addCircles(new Circle(x + width, y, radius));
+		m.addCircles(new Circle(x + width, y + height, radius));
 		
 		// for circles at the end of flipper
 		m.addGizmo(new CircleBumper(x + width / 2, y, width, this.color, m));

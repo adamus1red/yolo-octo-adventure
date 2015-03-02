@@ -28,9 +28,9 @@ public class Absorber implements IGizmo {
 		
 		// for ends of the lines
 		m.addCircles(new Circle(x, y, radius));
-		m.addCircles(new Circle(x, w, radius));
-		m.addCircles(new Circle(y, w, radius));
-		m.addCircles(new Circle(w, w, radius));
+		m.addCircles(new Circle(x, y + height, radius));
+		m.addCircles(new Circle(x + w, y, radius));
+		m.addCircles(new Circle(x + w, y + height, radius));
 	}
 
 	@Override

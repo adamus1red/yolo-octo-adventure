@@ -41,6 +41,10 @@ public class Ball {
 		return new Circle(xpos, ypos, radius);
 
 	}
+	
+	public void setGravity(){
+		
+	}
 
 	// Ball specific methods that deal with double precision.
 	public double getExactX() {

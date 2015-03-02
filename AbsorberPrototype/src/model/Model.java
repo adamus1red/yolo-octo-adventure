@@ -18,10 +18,8 @@ public class Model extends Observable {
 
 	public Model() {
 
-		// Ball position (250, 25) in pixels. Ball velocity (100, 100) pixels
-		// per
-		// tick
-		ball = new Ball(494, 494, 100, 100);
+		// Ball position (250, 25) in pixels. Ball velocity (100, 100) pixels per tick
+		ball = new Ball(493, 469, 100, 100);
 
 		// Wall size 500 x 500 pixels
 		gws = new Walls(0, 0, 500, 500);
@@ -96,17 +94,26 @@ public class Model extends Observable {
 				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
 			}
 		}
+		
+		// Time to collide with circles
+		for (Circle c : circles){
+			time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
+			if (time < shortestTime){
+				shortestTime = time;
+				newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity, 1.0);
+			}
+		}
 
 		// Time to collide with any vertical lines
-//		for (VerticalLine line : lines) {
-//			LineSegment ls = line.getLineSeg();
-//			time = Geometry
-//					.timeUntilWallCollision(ls, ballCircle, ballVelocity);
-//			if (time < shortestTime) {
-//				shortestTime = time;
-//				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
-//			}
-//		}
+		for (VerticalLine line : lines) {
+			LineSegment ls = line.getLineSeg();
+			time = Geometry
+					.timeUntilWallCollision(ls, ballCircle, ballVelocity);
+			if (time < shortestTime) {
+				shortestTime = time;
+				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
+			}
+		}
 
 		return new CollisionDetails(shortestTime, newVelo);
 	}

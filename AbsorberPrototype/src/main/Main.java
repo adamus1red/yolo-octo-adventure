@@ -28,13 +28,15 @@ public class Main {
 		// add absorder
 		model.addGizmo(new Absorber(0, 475, 500, model));
 		model.addGizmo(new Absorber(100, 100, 300, model));
+		model.addGizmo(new Absorber(200, 150, 300, model));
 		
 		// add flipper
 		model.addGizmo(new Flipper(100, 300, model));
-		model.addGizmo(new Flipper(300, 300, model));
+		model.addGizmo(new Flipper(200, 300, model));
 		
 		// add circle bumper
 		model.addGizmo(new CircleBumper(260, 25, model));
+		model.addGizmo(new CircleBumper(300, 300, model));
 
 		RunGui gui = new RunGui(model);
 		gui.createAndShowGUI();
