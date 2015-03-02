@@ -2,38 +2,36 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Observable;
-
-import model.Box;
-
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
 
-
 public class Model extends Observable {
 
 	private ArrayList<VerticalLine> lines;
+	private ArrayList<IGizmo> gizmos;
+	private ArrayList<Circle> circles;
 	private Ball ball;
 	private Walls gws;
-	private ArrayList<Box> boxes;
-
 
 	public Model() {
 
-		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball(50, 75, 250, 100);
-		
+		// Ball position (250, 25) in pixels. Ball velocity (100, 100) pixels per tick
+		ball = new Ball(493, 469, 100, 100);
 
 		// Wall size 500 x 500 pixels
 		gws = new Walls(0, 0, 500, 500);
 
 		// Lines added in Main
 		lines = new ArrayList<VerticalLine>();
-		
-		// Boxes added in Main
-		boxes = new ArrayList<Box>();
+
+		// Gizmos added
+		gizmos = new ArrayList<IGizmo>();
+
+		// circles added
+		circles = new ArrayList<Circle>();
 	}
 
 	public void moveBall() {
@@ -75,7 +73,8 @@ public class Model extends Observable {
 	}
 
 	private CollisionDetails timeUntilCollision() {
-		// Find Time Until Collision and also, if there is a collision, the new speed vector.
+		// Find Time Until Collision and also, if there is a collision, the new
+		// speed vector.
 		// Create a physics.Circle from Ball
 		Circle ballCircle = ball.getCircle();
 		Vect ballVelocity = ball.getVelo();
@@ -88,25 +87,34 @@ public class Model extends Observable {
 		// Time to collide with 4 walls
 		ArrayList<LineSegment> lss = gws.getLineSegments();
 		for (LineSegment line : lss) {
-			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
+			time = Geometry.timeUntilWallCollision(line, ballCircle,
+					ballVelocity);
 			if (time < shortestTime) {
 				shortestTime = time;
 				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
 			}
 		}
 		
-		
-		
+		// Time to collide with circles
+		for (Circle c : circles){
+			time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
+			if (time < shortestTime){
+				shortestTime = time;
+				newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity, 1.0);
+			}
+		}
+
 		// Time to collide with any vertical lines
 		for (VerticalLine line : lines) {
 			LineSegment ls = line.getLineSeg();
-			time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
+			time = Geometry
+					.timeUntilWallCollision(ls, ballCircle, ballVelocity);
 			if (time < shortestTime) {
 				shortestTime = time;
 				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
 			}
 		}
-		
+
 		return new CollisionDetails(shortestTime, newVelo);
 	}
 
@@ -118,21 +126,27 @@ public class Model extends Observable {
 		return lines;
 	}
 
-	public ArrayList<Box> getBoxes() {
-		return boxes;
+	public void addLine(VerticalLine l) {
+		lines.add(l);
 	}
-	
-	public void addLine(VerticalLine verticalLine){
-		lines.add(verticalLine);
-	}
-	
 
 	public void setBallSpeed(int x, int y) {
 		ball.setVelo(new Vect(x, y));
 	}
 
-	public void addBox(int i, int j, int k, int l) {
-		boxes.add(new Box(i, j, k, l));	
+	public void addGizmo(IGizmo g) {
+		gizmos.add(g);
 	}
 
+	public ArrayList<IGizmo> getGizmos() {
+		return gizmos;
+	}
+	
+	public ArrayList<Circle> getCircles(){
+		return circles;
+	}
+	
+	public void addCircles(Circle c){
+		circles.add(c);
+	}
 }
