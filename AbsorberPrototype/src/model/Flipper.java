@@ -6,7 +6,7 @@ import physics.Circle;
 public class Flipper implements IGizmo {
 	private int xPos;
 	private int yPos;
-	private final int width = 15;
+	private final int width = 16;
 	private final int height = 35;
 	private final int radius = 0; // 10 for testing change to 0 when not
 	private Color color;
@@ -31,8 +31,8 @@ public class Flipper implements IGizmo {
 		m.addCircles(new Circle(x + width, y + height, radius));
 		
 		// for circles at the end of flipper
-		m.addGizmo(new CircleBumper(x + width / 2, y, width, this.color, m));
-		m.addGizmo(new CircleBumper(x + width / 2, y + height, width, this.color, m));
+		m.addGizmo(new CircleBumper(x + width / 2, y, width / 2, this.color, m));
+		m.addGizmo(new CircleBumper(x + width / 2, y + height, width / 2, this.color, m));
 	}
 
 	@Override

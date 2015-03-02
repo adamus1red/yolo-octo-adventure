@@ -36,7 +36,7 @@ public class Main {
 		
 		// add circle bumper
 		model.addGizmo(new CircleBumper(260, 25, model));
-		model.addGizmo(new CircleBumper(300, 300, model));
+		model.addGizmo(new CircleBumper(250, 250, model));
 
 		RunGui gui = new RunGui(model);
 		gui.createAndShowGUI();

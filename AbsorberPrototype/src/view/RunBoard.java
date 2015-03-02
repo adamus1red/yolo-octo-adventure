@@ -42,7 +42,7 @@ public class RunBoard extends JPanel implements Observer {
 		for (IGizmo gz : gm.getGizmos()) {
 			g2.setColor(gz.getColor());
 			g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(), gz.getHeight());
-			g2.fillOval(gz.getXPos() - gz.getRadius() / 2, gz.getYPos()  - gz.getRadius() / 2, gz.getRadius(), gz.getRadius());
+			g2.fillOval(gz.getXPos() - gz.getRadius(), gz.getYPos() - gz.getRadius(), gz.getRadius() * 2, gz.getRadius() * 2);
 		}
 
 		Ball b = gm.getBall();
