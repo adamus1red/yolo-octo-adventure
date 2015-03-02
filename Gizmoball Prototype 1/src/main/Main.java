@@ -1,19 +1,14 @@
 package main;
 
-import model.Box;
 import javax.swing.UIManager;
 
-
-
+import model.Absorber;
+import model.CircleBumper;
+import model.Flipper;
 import model.Model;
-import model.VerticalLine;
+import model.SquareBumper;
+import model.TriangleBumper;
 import view.RunGui;
-
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
-
-	
 
 public class Main {
 
@@ -26,21 +21,30 @@ public class Main {
 		}
 
 		Model model = new Model();
-		Box box = new Box(100,100,100,100);
-		
-		model.setBallSpeed(300, 200);
 
-		// Vertical line at (100,100), width 300
-		model.addLine(new VerticalLine(00, 00, 00, 00));
+		// 1L = 25
 		
-		model.addLine(box.getBottomLine());
-		model.addLine(box.getTopLine());
-		model.addLine(box.getRightLine());
-		model.addLine(box.getLeftLine());
-		model.addBox(100,100,100,100);
+		// originally set at (200, 200)
+		model.setBallSpeed(200, 200);
 		
+		// add square
+		model.addGizmo(new SquareBumper(100,100,100,100,model));
 		
+		//add triangle
+		model.addGizmo(new TriangleBumper(350, 350, 40, 40, model));
 		
+		// add absorder
+		model.addGizmo(new Absorber(0, 475, 500, model));
+		model.addGizmo(new Absorber(100, 100, 300, model));
+		model.addGizmo(new Absorber(200, 150, 300, model));
+		
+		// add flipper
+		model.addGizmo(new Flipper(100, 300, model));
+		model.addGizmo(new Flipper(200, 300, model));
+		
+		// add circle bumper
+		model.addGizmo(new CircleBumper(260, 25, model));
+		model.addGizmo(new CircleBumper(250, 250, model));
 
 		RunGui gui = new RunGui(model);
 		gui.createAndShowGUI();

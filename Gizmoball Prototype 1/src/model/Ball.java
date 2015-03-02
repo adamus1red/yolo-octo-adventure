@@ -1,13 +1,9 @@
 package model;
 
 import java.awt.Color;
-
 import physics.Circle;
 import physics.Vect;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
 
 public class Ball {
 
@@ -23,9 +19,9 @@ public class Ball {
 	public Ball(double x, double y, double xv, double yv) {
 		xpos = x; // Centre coordinates
 		ypos = y;
-		colour = Color.RED;
+		colour = Color.BLUE;
 		velocity = new Vect(xv, yv);
-		radius = 10;
+		radius = 6;
 		stopped = false;
 	}
 
@@ -44,6 +40,10 @@ public class Ball {
 	public Circle getCircle() {
 		return new Circle(xpos, ypos, radius);
 
+	}
+	
+	public void setGravity(){
+		
 	}
 
 	// Ball specific methods that deal with double precision.
