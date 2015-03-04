@@ -3,7 +3,6 @@ package model;
 import java.awt.Color;
 
 import physics.Circle;
-import physics.LineSegment;
 
 public class TriangleBumper implements IGizmo {
 
@@ -13,96 +12,84 @@ public class TriangleBumper implements IGizmo {
 	private int height;
 	private Color color;
 	private final int radius = 0; // 10 for testing change to 0 when not
-	private VerticalLine leftLine;
-	private VerticalLine rightLine;
-	private VerticalLine topLine;
-	private VerticalLine bottomLine;
-	private VerticalLine diagonalLine;
+	private String type;
 	
-	
+
+
 	public TriangleBumper(int x, int y, int w, int h, Model m) {
-			xpos = x;
-			ypos = y;
-			width = w;
-			height = h;
-			this.color = Color.PINK;
-			leftLine = new VerticalLine(x,y,1,h);
-			diagonalLine = new VerticalLine(x,y,w-h,1);
-			rightLine = new VerticalLine(x+w-1,y,1,h);
-			topLine = new VerticalLine(x,y,w,1);
-			bottomLine = new VerticalLine(x,y+h-1,w,1);
-			
-			// vertical lines 
-			m.addLine(new VerticalLine(x,y,1,h));
-			//m.addLine(new VerticalLine(x+w-1,y,1,h));
-			
-			// horizontal lines 
-			//m.addLine(new VerticalLine(x, y, w, 1));
-			m.addLine(new VerticalLine(x, y + h -1, w, 1));
-			
-			//diagonal lines
-			m.addLine(new VerticalLine(x, y, w, 1));
-			
-			// for ends of the lines
-			m.addCircles(new Circle(x, y, radius));
-			//m.addCircles(new Circle(x, y + h, radius));
-			m.addCircles(new Circle(x + w, y, radius));
-			m.addCircles(new Circle(x + w, y + h, radius));
-		}
-			
-		
+		type = "Triangle";
+		xpos = x;
+		ypos = y;
+		width = w;
+		height = h;
+		this.color = Color.RED;
 
-		
 
-		public int getXPos() {
-			return xpos;
-		}
+		// left lines 
+		m.addLine(new VerticalLine(x,y,1,h));
 
-		public int getYPos() {
-			return ypos;
-		}
 
-		public int getWidth() {
-			return width;
-		}
+		// bottom lines 
+		m.addLine(new VerticalLine(x,y+h,w,1));
 
-		
-		public int getHeight() {
-			return height;
+//		diagonal lines
+		m.addLine(new VerticalLine(x,y,w,h-1));
+
+		// for ends of the lines
+		m.addCircles(new Circle(x, y, radius));      // top left circle of triangle
+		m.addCircles(new Circle(x, y+h, radius));  // bottom left circle of triangle
+		m.addCircles(new Circle(x + w, y + h, radius)); //bottom right circle of triangle
 	}
-		
-		public VerticalLine getLeftLine(){
-			return leftLine;
-		}
-		
-		public VerticalLine getRightLine(){
-			return rightLine;
-		}
-		
-		public VerticalLine getTopLine(){
-			return topLine;
-		}
-		
-		public VerticalLine getBottomLine(){
-			return bottomLine;
-		}
 
+	public int getXPos() {
+		return xpos;
+	}
 
-
-		@Override
-		public Color getColor() {
-			return color;
-		}
-
-
-		@Override
-		public int getRadius() {
-			return radius;
-		}
-
-		public VerticalLine getDiagonalLine() {
-			return diagonalLine;
-		}
-		
-}
+	public int getYPos(){
+		return ypos;
+	}
 	
+	public int getXPos2(){
+		return xpos;
+	}
+
+	public int getYPos2() {
+		return ypos+height;
+	}
+
+	public int getXPos3() {
+		return xpos+width;
+	}
+
+	public int getYPos3() {
+		return ypos+height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+
+	public int getHeight() {
+		return height;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+
+
+
+
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+
+}

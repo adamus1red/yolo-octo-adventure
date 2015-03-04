@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+
 import physics.Circle;
 
 public class Absorber implements IGizmo {
@@ -10,6 +11,7 @@ public class Absorber implements IGizmo {
 	private final int height = 25;
 	private final int radius = 0; // 10 for testing change to 0 when not
 	private Color color;
+	private String type;
 	
 
 	public Absorber(int x, int y, int w, Model m) {
@@ -17,6 +19,7 @@ public class Absorber implements IGizmo {
 		this.yPos = y;
 		this.width = w;
 		this.color = Color.ORANGE;
+		type = "Absorber";
 		
 		// vertical lines 
 		m.addLine(new VerticalLine(x,y,1,height));
@@ -61,4 +64,12 @@ public class Absorber implements IGizmo {
 	public int getRadius(){
 		return radius;
 	}
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+
+
 }

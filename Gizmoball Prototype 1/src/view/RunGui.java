@@ -75,7 +75,7 @@ public class RunGui {
 		cp.add(board, BorderLayout.CENTER);
 
 		frame.pack();
-		frame.setLocationRelativeTo(null);
+		//frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 

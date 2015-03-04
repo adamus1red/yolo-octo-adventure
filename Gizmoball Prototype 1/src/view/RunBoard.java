@@ -6,11 +6,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+
 import model.Ball;
 import model.IGizmo;
 import model.Model;
+import model.TriangleBumper;
 
 public class RunBoard extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
@@ -37,14 +40,36 @@ public class RunBoard extends JPanel implements Observer {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
+		
+
+		
+
 
 		// draw created gizmos to the screen
 		for (IGizmo gz : gm.getGizmos()) {
+			if(gz.getType().equals("Square")){
 			g2.setColor(gz.getColor());
 			g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(), gz.getHeight());
-			g2.fillOval(gz.getXPos() - gz.getRadius(), gz.getYPos() - gz.getRadius(), gz.getRadius() * 2, gz.getRadius() * 2);
+			}
+			
+			if(gz.getType().equals("Circle")){
+				g2.setColor(gz.getColor());
+				g2.fillOval(gz.getXPos() - gz.getRadius(), gz.getYPos() - gz.getRadius(), gz.getRadius() * 2, gz.getRadius() * 2);
+			}
+			
+			if(gz.getType().equals("Triangle")){
+				g2.setColor(gz.getColor());
+			int[] xPoints = {gz.getXPos(),gz.getXPos()+30,gz.getXPos()};
+			int[] yPoints = {gz.getYPos(),gz.getYPos()+30,gz.getYPos()+30};
+			g2.fillPolygon(xPoints, yPoints, 3);
+			}
+			else{
+				
+			}
 		}
+		
 
+		
 		Ball b = gm.getBall();
 		if (b != null) {
 			g2.setColor(b.getColour());

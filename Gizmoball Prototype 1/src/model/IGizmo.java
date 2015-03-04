@@ -15,5 +15,9 @@ public interface IGizmo {
 	int getHeight();
 	
 	int getRadius();
+	
+String getType();
+
+	
 
 }

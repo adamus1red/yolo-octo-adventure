@@ -9,11 +9,13 @@ public class CircleBumper implements IGizmo {
 	private int yPos;
 	private Color color;
 	private int radius = 12;
+	private String type;
 	
 	public CircleBumper(int x, int y, Model m) {
 		this.xPos = x;
 		this.yPos = y;
 		this.color = Color.YELLOW;
+		type = "Circle";
 		
 		// add circle  then model can deal with collisions
 		m.addCircles(new Circle(x, y, radius));
@@ -61,5 +63,14 @@ public class CircleBumper implements IGizmo {
 	public int getRadius() {
 		return radius;
 	}
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+
+
+
 
 }

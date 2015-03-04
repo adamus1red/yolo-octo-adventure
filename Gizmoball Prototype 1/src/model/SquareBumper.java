@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+
 import physics.Circle;
 
 public class SquareBumper implements IGizmo {
@@ -10,6 +11,7 @@ public class SquareBumper implements IGizmo {
 	private int height;
 	private final int radius = 0; // 10 for testing change to 0 when not
 	private Color color;
+	private String type;
 	
 
 	public SquareBumper(int x, int y, int w, int h, Model m) {
@@ -18,6 +20,7 @@ public class SquareBumper implements IGizmo {
 		this.width = w;
 		this.height = h;
 		this.color = Color.CYAN;
+		type = "Square";
 		
 		// vertical lines 
 		m.addLine(new VerticalLine(x,y,1,h));
@@ -62,4 +65,12 @@ public class SquareBumper implements IGizmo {
 	public int getRadius(){
 		return radius;
 	}
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+
+
 }

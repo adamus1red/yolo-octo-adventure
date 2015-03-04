@@ -146,6 +146,7 @@ public class Model extends Observable {
 		return circles;
 	}
 	
+	
 	public void addCircles(Circle c){
 		circles.add(c);
 	}

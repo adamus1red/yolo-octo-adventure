@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+
 import physics.Circle;
 
 public class Flipper implements IGizmo {
@@ -10,11 +11,13 @@ public class Flipper implements IGizmo {
 	private final int height = 35;
 	private final int radius = 0; // 10 for testing change to 0 when not
 	private Color color;
+	private String type;
 
 	public Flipper(int x, int y,  Model m) {
 		this.xPos = x;
 		this.yPos = y;
 		this.color = Color.RED;
+		type = "Flipper";
 
 		// vertical lines
 		m.addLine(new VerticalLine(x, y, 1, height));
@@ -64,4 +67,13 @@ public class Flipper implements IGizmo {
 	public int getRadius() {
 		return radius;
 	}
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+
+
+
 }
