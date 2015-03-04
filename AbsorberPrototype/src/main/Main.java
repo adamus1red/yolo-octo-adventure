@@ -6,6 +6,7 @@ import model.Absorber;
 import model.CircleBumper;
 import model.Flipper;
 import model.Model;
+import model.TriangleBumper;
 import view.RunGui;
 
 public class Main {
@@ -21,22 +22,26 @@ public class Main {
 		Model model = new Model();
 
 		// 1L = 25
-		
+
 		// originally set at (200, 200)
 		model.setBallSpeed(200, 200);
-		
+
 		// add absorder
 		model.addGizmo(new Absorber(0, 475, 500, model));
 		model.addGizmo(new Absorber(100, 100, 300, model));
 		model.addGizmo(new Absorber(200, 150, 300, model));
-		
+
 		// add flipper
 		model.addGizmo(new Flipper(100, 300, model));
 		model.addGizmo(new Flipper(200, 300, model));
-		
+
 		// add circle bumper
 		model.addGizmo(new CircleBumper(260, 25, model));
 		model.addGizmo(new CircleBumper(250, 250, model));
+
+		// add triangle bumper
+		model.addGizmo(new TriangleBumper(50, 102, model));
+		model.addGizmo(new TriangleBumper(150, 300, model));
 
 		RunGui gui = new RunGui(model);
 		gui.createAndShowGUI();

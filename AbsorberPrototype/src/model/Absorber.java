@@ -1,9 +1,11 @@
 package model;
 
 import java.awt.Color;
+
 import physics.Circle;
 
 public class Absorber implements IGizmo {
+	private final String name = "Absorber"; 
 	private int xPos;
 	private int yPos;
 	private int width;
@@ -60,5 +62,10 @@ public class Absorber implements IGizmo {
 	
 	public int getRadius(){
 		return radius;
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }

@@ -38,11 +38,27 @@ public class RunBoard extends JPanel implements Observer {
 
 		Graphics2D g2 = (Graphics2D) g;
 
+		int yPoints[] = new int[3];
+		int xPoints[] = new int[3];
 		// draw created gizmos to the screen
 		for (IGizmo gz : gm.getGizmos()) {
 			g2.setColor(gz.getColor());
-			g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(), gz.getHeight());
-			g2.fillOval(gz.getXPos() - gz.getRadius(), gz.getYPos() - gz.getRadius(), gz.getRadius() * 2, gz.getRadius() * 2);
+			g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
+					gz.getHeight());
+			g2.fillOval(gz.getXPos() - gz.getRadius(),
+					gz.getYPos() - gz.getRadius(), gz.getRadius() * 2,
+					gz.getRadius() * 2);
+
+			if (gz.getName().equals("triangle")) {
+				// draw triangle
+				xPoints[0] = gz.getXPos();
+				xPoints[1] = gz.getXPos() + gz.getWidth();
+				xPoints[2] = gz.getXPos();
+				yPoints[0] = gz.getYPos();
+				yPoints[1] = gz.getYPos();
+				yPoints[2] = gz.getYPos() - gz.getWidth();
+				g2.fillPolygon(xPoints, yPoints, 3);
+			}
 		}
 
 		Ball b = gm.getBall();

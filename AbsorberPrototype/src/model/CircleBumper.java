@@ -5,6 +5,7 @@ import java.awt.Color;
 import physics.Circle;
 
 public class CircleBumper implements IGizmo {
+	private final String name  = "Circle";
 	private int xPos;
 	private int yPos;
 	private Color color;
@@ -60,6 +61,11 @@ public class CircleBumper implements IGizmo {
 	@Override
 	public int getRadius() {
 		return radius;
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 
 }
