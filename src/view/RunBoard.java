@@ -44,18 +44,21 @@ public class RunBoard extends JPanel implements Observer {
 		int yPoints[] = new int[3];
 		int xPoints[] = new int[3];
 		for (IGizmo gz : gm.getGizmos()) {
-			g2.setColor(gz.getColor());
 			if (gz.getType().equals("Square")) {
+				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
 			} else if (gz.getType().equals("Absorber")) {
+				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
 			} else if (gz.getType().equals("Circle")) {
+				g2.setColor(gz.getColor());
 				g2.fillOval(gz.getXPos() - gz.getRadius(),
 						gz.getYPos() - gz.getRadius(), gz.getRadius() * 2,
 						gz.getRadius() * 2);
 			} else if (gz.getType().equals("Triangle")) {
+				g2.setColor(gz.getColor());
 				// draw triangle
 				xPoints[0] = gz.getXPos();
 				xPoints[1] = gz.getXPos() + gz.getWidth();
@@ -64,7 +67,8 @@ public class RunBoard extends JPanel implements Observer {
 				yPoints[1] = gz.getYPos();
 				yPoints[2] = gz.getYPos() - gz.getWidth();
 				g2.fillPolygon(xPoints, yPoints, 3);
-			} else if (gz.getType().toLowerCase().matches("flipper")) {
+			} else if (gz.getType().toLowerCase().contains("flipper")) {
+				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
 				g2.fillOval(gz.getXPos() - gz.getRadius(),

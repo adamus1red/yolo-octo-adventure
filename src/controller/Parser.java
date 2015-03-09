@@ -18,7 +18,9 @@ public class Parser {
 
 	/**
 	 * Generates a IGizmo implimentable objects based on an input string
-	 * @param Input String
+	 * 
+	 * @param Input
+	 *            String
 	 * @param Model
 	 * @return IGizmo interface complient Gizmo
 	 * @throws Exception
@@ -118,8 +120,13 @@ public class Parser {
 	public String parseOut(IGizmo iGizmo) throws Exception {
 		if (checkName(iGizmo.getName())) {
 			String r = null;
-			r = "" + iGizmo.getType() + " " + iGizmo.getName() + " "
-					+ iGizmo.getXPos() + " " + iGizmo.getYPos() + "\n";
+			if (iGizmo.getType().toUpperCase().equals("ABSORBER")) {
+				r = "" + iGizmo.getType() + " " + iGizmo.getName() + " "
+						+ iGizmo.getXPos() + " " + iGizmo.getYPos() + " " + iGizmo.getWidth() + " " + iGizmo.getHeight();
+			} else {
+				r = "" + iGizmo.getType() + " " + iGizmo.getName() + " "
+						+ iGizmo.getXPos() + " " + iGizmo.getYPos();
+			}
 			System.out.println(r);
 			return r;
 		} else {

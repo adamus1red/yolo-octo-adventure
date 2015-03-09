@@ -34,4 +34,13 @@ public class Flipper extends Gizmo implements IGizmo {
 		m.addGizmo(new CircleBumper(x + width / 2, y, width / 2, this.color, this.getName(),m));
 		m.addGizmo(new CircleBumper(x + width / 2, y + height, width / 2, this.color, this.getName(), m));
 	}
+	public int getWidth(){
+		return width; 
+	}
+	public int getHeight(){
+		return height; 
+	}
+	public int getRadius(){
+		return radius; 
+	}
 }

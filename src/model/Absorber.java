@@ -6,12 +6,13 @@ import physics.Circle;
 
 public class Absorber extends Gizmo implements IGizmo {
 	private int width;
-	private final int height = 25;
+	private int height = 25;
 	private final int radius = 0; // 10 for testing change to 0 when not
 
 	public Absorber(int x, int y, int w, int h, String n, Model m) {
 		super(x, y);
 		width = w;
+		height = h;
 		super.setName(n);
 		setColor(Color.ORANGE);
 		super.setType("Absorber");
@@ -28,5 +29,13 @@ public class Absorber extends Gizmo implements IGizmo {
 		m.addCircles(new Circle(x, y + height, radius));
 		m.addCircles(new Circle(x + w, y, radius));
 		m.addCircles(new Circle(x + w, y + height, radius));
+	}
+	
+	public int getWidth(){
+		return width; 
+	}
+	
+	public int getHeight(){
+		return height; 
 	}
 }
