@@ -4,15 +4,19 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import physics.Circle;
+import physics.LineSegment;
 import model.Ball;
 import model.IGizmo;
 import model.Model;
+import model.VerticalLine;
 
 public class RunBoard extends JPanel implements Observer {
 
@@ -36,13 +40,15 @@ public class RunBoard extends JPanel implements Observer {
 		return new Dimension(width, height);
 	}
 
+	/**
+	 * Does magic
+	 * @param g
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
 
-		int yPoints[] = new int[3];
-		int xPoints[] = new int[3];
 		for (IGizmo gz : gm.getGizmos()) {
 			if (gz.getType().equals("Square")) {
 				g2.setColor(gz.getColor());
@@ -59,23 +65,35 @@ public class RunBoard extends JPanel implements Observer {
 						gz.getRadius() * 2);
 			} else if (gz.getType().equals("Triangle")) {
 				g2.setColor(gz.getColor());
-				// draw triangle
-				xPoints[0] = gz.getXPos();
-				xPoints[1] = gz.getXPos() + gz.getWidth();
-				xPoints[2] = gz.getXPos();
-				yPoints[0] = gz.getYPos();
-				yPoints[1] = gz.getYPos();
-				yPoints[2] = gz.getYPos() - gz.getWidth();
+				int[] xPoints = { gz.getXPos(), gz.getXPos(),
+						gz.getXPos() + gz.getWidth() };
+				int[] yPoints = { gz.getYPos(), gz.getYPos() + gz.getHeight(),
+						gz.getYPos() + gz.getHeight() };
 				g2.fillPolygon(xPoints, yPoints, 3);
 			} else if (gz.getType().toLowerCase().contains("flipper")) {
 				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
-				g2.fillOval(gz.getXPos() - gz.getRadius(),
-						gz.getYPos() - gz.getRadius(), gz.getRadius() * 2,
-						gz.getRadius() * 2);
+				// g2.fillOval(gz.getXPos() - gz.getRadius(),
+				// gz.getYPos() - gz.getRadius(), gz.getRadius() * 2,
+				// gz.getRadius() * 2);
+				ArrayList<Circle> gc = gm.getCircles();
+				for (int i = 0; i < gc.size(); i++) {
+					g2.fillOval((int) (gc.get(i).getCenter().x() - gc.get(i)
+							.getRadius()),
+							(int) (gc.get(i).getCenter().y() - gc.get(i)
+									.getRadius()),
+							(int) (gc.get(i).getRadius() * 2), (int) (gc.get(i)
+									.getRadius() * 2));
+				}
 			}
 		}
+
+		// Debug for showing all generated lines
+//		for (LineSegment l : gm.getLines()) {
+//			g2.drawLine((int) l.p1().x(), (int) l.p1().y(), (int) l.p2().x(),
+//					(int) l.p2().y());
+//		}
 
 		Ball b = gm.getBall();
 		if (b != null) {

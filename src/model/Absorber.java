@@ -3,6 +3,7 @@ package model;
 import java.awt.Color;
 
 import physics.Circle;
+import physics.LineSegment;
 
 public class Absorber extends Gizmo implements IGizmo {
 	private int width;
@@ -16,26 +17,26 @@ public class Absorber extends Gizmo implements IGizmo {
 		super.setName(n);
 		setColor(Color.ORANGE);
 		super.setType("Absorber");
-		// vertical lines 
-		m.addLine(new VerticalLine(x,y,1,height));
-		m.addLine(new VerticalLine(x+w-1,y,1,height));
-		
-		// horizontal lines 
-		m.addLine(new VerticalLine(x, y, w, 1));
-		m.addLine(new VerticalLine(x, y + height -1, w, 1));
-		
+		// vertical lines
+		m.addLine(new LineSegment(x, y, x, y + height));
+		m.addLine(new LineSegment(x + width, y, x + width, y + height));
+
+		// horizontal lines
+		m.addLine(new LineSegment(x, y, x + width, y));
+		m.addLine(new LineSegment(x, y + height, x + width, y + height));
+
 		// for ends of the lines
 		m.addCircles(new Circle(x, y, radius));
 		m.addCircles(new Circle(x, y + height, radius));
 		m.addCircles(new Circle(x + w, y, radius));
 		m.addCircles(new Circle(x + w, y + height, radius));
 	}
-	
-	public int getWidth(){
-		return width; 
+
+	public int getWidth() {
+		return width;
 	}
-	
-	public int getHeight(){
-		return height; 
+
+	public int getHeight() {
+		return height;
 	}
 }

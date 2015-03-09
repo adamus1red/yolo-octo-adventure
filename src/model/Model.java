@@ -14,7 +14,7 @@ import physics.Vect;
 
 public class Model extends Observable {
 
-	private ArrayList<VerticalLine> lines;
+	private ArrayList<LineSegment> lines;
 	private ArrayList<IGizmo> gizmos;
 	private ArrayList<Circle> circles;
 	private Ball ball;
@@ -31,7 +31,7 @@ public class Model extends Observable {
 		gws = new Walls(0, 0, 500, 500);
 
 		// Lines added in Main
-		lines = new ArrayList<VerticalLine>();
+		lines = new ArrayList<LineSegment>();
 
 		// Gizmos added
 		gizmos = new ArrayList<IGizmo>();
@@ -121,8 +121,8 @@ public class Model extends Observable {
 		}
 
 		// Time to collide with any vertical lines
-		for (VerticalLine line : lines) {
-			LineSegment ls = line.getLineSeg();
+		for (LineSegment line : lines) {
+			LineSegment ls = line;
 			time = Geometry
 					.timeUntilWallCollision(ls, ballCircle, ballVelocity);
 			if (time < shortestTime) {
@@ -138,11 +138,11 @@ public class Model extends Observable {
 		return ball;
 	}
 
-	public ArrayList<VerticalLine> getLines() {
+	public ArrayList<LineSegment> getLines() {
 		return lines;
 	}
 
-	public void addLine(VerticalLine l) {
+	public void addLine(LineSegment l) {
 		lines.add(l);
 	}
 
