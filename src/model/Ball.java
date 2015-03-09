@@ -5,28 +5,31 @@ import java.awt.Color;
 import physics.Circle;
 import physics.Vect;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
 
-public class Ball {
+public class Ball implements IGizmo{
 
 	private Vect velocity;
-	private double radius;
+	private int radius;
 	private double xpos;
 	private double ypos;
 	private Color colour;
 
 	private boolean stopped;
+	private String name;
 
 	// x, y coordinates and x,y velocity
-	public Ball(double x, double y, double xv, double yv) {
-		xpos = x; // Centre coordinates
+	public Ball(double x, double y, double xv, double yv, String n) {
+		xpos = x;
 		ypos = y;
 		colour = Color.BLUE;
 		velocity = new Vect(xv, yv);
-		radius = 10;
+		radius = 6;
 		stopped = false;
+		setName(n);
+	}
+	
+	public void setName(String n) {
+		name = n;
 	}
 
 	public Vect getVelo() {
@@ -37,13 +40,17 @@ public class Ball {
 		velocity = v;
 	}
 
-	public double getRadius() {
+	public int getRadius() {
 		return radius;
 	}
 
 	public Circle getCircle() {
 		return new Circle(xpos, ypos, radius);
 
+	}
+	
+	public void setGravity(){
+		
 	}
 
 	// Ball specific methods that deal with double precision.
@@ -76,7 +83,78 @@ public class Ball {
 	}
 
 	public Color getColour() {
+		// TODO Auto-generated method stub
 		return colour;
 	}
 
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getXPos() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getYPos() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getRotation() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setType(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setXPos(int x) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setYPos(int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRotation(int r) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public Color getColor() {
+		// TODO Auto-generated method stub
+		return colour;
+	}
 }

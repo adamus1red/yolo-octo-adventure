@@ -6,15 +6,17 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+
 import model.Ball;
 import model.IGizmo;
 import model.Model;
 
 public class RunBoard extends JPanel implements Observer {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4546557205846642694L;
 	protected int width;
 	protected int height;
 	protected Model gm;
@@ -26,6 +28,7 @@ public class RunBoard extends JPanel implements Observer {
 		height = h;
 		gm = m;
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		this.setBackground(Color.BLACK);
 	}
 
 	// Fix onscreen size
@@ -38,11 +41,36 @@ public class RunBoard extends JPanel implements Observer {
 
 		Graphics2D g2 = (Graphics2D) g;
 
-		// add absorber here
+		int yPoints[] = new int[3];
+		int xPoints[] = new int[3];
 		for (IGizmo gz : gm.getGizmos()) {
 			g2.setColor(gz.getColor());
-			g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
-					gz.getHeight());
+			if (gz.getType().equals("Square")) {
+				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
+						gz.getHeight());
+			} else if (gz.getType().equals("Absorber")) {
+				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
+						gz.getHeight());
+			} else if (gz.getType().equals("Circle")) {
+				g2.fillOval(gz.getXPos() - gz.getRadius(),
+						gz.getYPos() - gz.getRadius(), gz.getRadius() * 2,
+						gz.getRadius() * 2);
+			} else if (gz.getType().equals("Triangle")) {
+				// draw triangle
+				xPoints[0] = gz.getXPos();
+				xPoints[1] = gz.getXPos() + gz.getWidth();
+				xPoints[2] = gz.getXPos();
+				yPoints[0] = gz.getYPos();
+				yPoints[1] = gz.getYPos();
+				yPoints[2] = gz.getYPos() - gz.getWidth();
+				g2.fillPolygon(xPoints, yPoints, 3);
+			} else if (gz.getType().toLowerCase().matches("flipper")) {
+				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
+						gz.getHeight());
+				g2.fillOval(gz.getXPos() - gz.getRadius(),
+						gz.getYPos() - gz.getRadius(), gz.getRadius() * 2,
+						gz.getRadius() * 2);
+			}
 		}
 
 		Ball b = gm.getBall();

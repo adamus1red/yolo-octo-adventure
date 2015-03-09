@@ -2,26 +2,24 @@ package model;
 
 import physics.LineSegment;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
-
-public class VerticalLine extends Gizmo {
+public class VerticalLine {
 
 	private int xpos;
 	private int ypos;
 	private int width;
-	private LineSegment ls;
+	private int height;
+	private LineSegment l;
 
-	public VerticalLine(int x, int y, int w) {
+	public VerticalLine(int x, int y, int w, int h) {
 		xpos = x;
 		ypos = y;
 		width = w;
-		ls = new LineSegment(x, y, x + w, y);
+		height = 1;
+		l = new LineSegment(x, y, x + w, y + h);
 	}
 
 	public LineSegment getLineSeg() {
-		return ls;
+		return l;
 	}
 
 	public int getX() {
@@ -34,6 +32,10 @@ public class VerticalLine extends Gizmo {
 
 	public int getWidth() {
 		return width;
+	}
+	
+	public int getHeight(){
+		return height;
 	}
 
 }

@@ -2,43 +2,31 @@ package model;
 
 import java.awt.Color;
 
-public class Absorber extends Gizmo {
-	private int xPos;
-	private int yPos;
+import physics.Circle;
+
+public class Absorber extends Gizmo implements IGizmo {
 	private int width;
-	private int height;
-	private Color color;
+	private final int height = 25;
+	private final int radius = 0; // 10 for testing change to 0 when not
 
-	// private Circle crcl;
-	// private Shape absorber;
-
-	public Absorber(int x, int y, int w, int h) {
-		this.setStartPoints(x, y);
-		this.height = h;
-		this.width = w;
-		this.color = Color.ORANGE;
-		// this.absorber = new Rectangle(x, y, w, h);
-		// for ends of the lines in the absorber
-		// this.crcl = new Circle(x, x, 0);
-		// this.crcl = new Circle(y, y, 0);
-		// this.crcl = new Circle(x, x + w, 0);
-		// this.crcl = new Circle(y, y + h, 0);
-	}
-
-	public void setWidth(int w) {
+	public Absorber(int x, int y, int w, int h, String n, Model m) {
+		super(x, y);
 		width = w;
+		super.setName(n);
+		setColor(Color.ORANGE);
+		super.setType("Absorber");
+		// vertical lines 
+		m.addLine(new VerticalLine(x,y,1,height));
+		m.addLine(new VerticalLine(x+w-1,y,1,height));
+		
+		// horizontal lines 
+		m.addLine(new VerticalLine(x, y, w, 1));
+		m.addLine(new VerticalLine(x, y + height -1, w, 1));
+		
+		// for ends of the lines
+		m.addCircles(new Circle(x, y, radius));
+		m.addCircles(new Circle(x, y + height, radius));
+		m.addCircles(new Circle(x + w, y, radius));
+		m.addCircles(new Circle(x + w, y + height, radius));
 	}
-
-	public void setHeight(int h) {
-		height = h;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
 }

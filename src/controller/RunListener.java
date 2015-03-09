@@ -2,7 +2,10 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.Timer;
+
+import view.GetInput;
 import model.Model;
 
 /**
@@ -13,10 +16,12 @@ public class RunListener implements ActionListener {
 
 	private Timer timer;
 	private Model model;
-
+	private GetInput gi;
+	
 	public RunListener(Model m) {
 		model = m;
 		timer = new Timer(50, this);
+		gi = new GetInput();
 	}
 
 	@Override
@@ -24,7 +29,7 @@ public class RunListener implements ActionListener {
 
 		if (e.getSource() == timer) {
 			model.moveBall();
-		} else
+		} else {
 			switch (e.getActionCommand()) {
 			case "Start":
 				timer.start();
@@ -35,9 +40,20 @@ public class RunListener implements ActionListener {
 			case "Tick":
 				model.moveBall();
 				break;
+			case "Load":
+				String in = gi.showPopup("Please enter the path to the correct level to load", model);
+				model.startLoad(in);
+				model.hasChanged();
+				break;
+			case "Save":
+				String out = gi.showPopup("Please enter the path to save the level to", model);
+				model.startSave(out);
+				model.hasChanged();
+				break;
 			case "Quit":
 				System.exit(0);
 				break;
 			}
+		}
 	}
 }

@@ -4,21 +4,33 @@ import java.awt.Color;
 
 public interface IGizmo {
 
-	Color getColor();
+	String type = null;
+	
+	String getType();
+
+	int getXPos();
+
+	int getYPos();
+
+	int getWidth();
+
+	int getHeight();
+
+	int getRotation();
+
+	String getName();
 
 	void setName(String s);
 
 	void setType(String s);
 
-	void setStartPoints(int x, int y);
+	void setXPos(int x);
+	
+	void setYPos(int y);
 
-	void setEndPoints(int x, int y);
+	void setRotation(int r);
 
-	int getStartXPoints();
+	Color getColor();
 
-	int getStartYPoints();
-
-	int getEndXPoints();
-
-	int getEndYPoints();
+	int getRadius();
 }

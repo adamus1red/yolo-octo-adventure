@@ -1,39 +1,48 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import controller.LoadState;
+import controller.SaveState;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
 
 public class Model extends Observable {
 
 	private ArrayList<VerticalLine> lines;
 	private ArrayList<IGizmo> gizmos;
+	private ArrayList<Circle> circles;
 	private Ball ball;
 	private Walls gws;
-
+	private float gravity;
+	private float friction;
+	
 	public Model() {
 
-		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball(25, 25, 100, 100);
+		// Ball position (250, 25) in pixels. Ball velocity (100, 100) pixels per tick
+		ball = new Ball(493, 469, 100, 100, "Gball1");
 
 		// Wall size 500 x 500 pixels
 		gws = new Walls(0, 0, 500, 500);
 
 		// Lines added in Main
 		lines = new ArrayList<VerticalLine>();
-		
-		//Gizmos added
-		gizmos = new ArrayList<IGizmo>();
-	}
 
+		// Gizmos added
+		gizmos = new ArrayList<IGizmo>();
+
+		// circles added
+		circles = new ArrayList<Circle>();
+	}
+	
+	/**
+	 * Moves the ball by for at most 20 times a second
+	 */
 	public void moveBall() {
 
 		double moveTime = 0.05; // 0.05 = 20 times per second as per Gizmoball
@@ -59,6 +68,13 @@ public class Model extends Observable {
 
 	}
 
+	
+	/**
+	 * Moves a ball for a specified time
+	 * @param ball
+	 * @param time
+	 * @return ball
+	 */
 	private Ball movelBallForTime(Ball ball, double time) {
 
 		double newX = 0.0;
@@ -73,7 +89,8 @@ public class Model extends Observable {
 	}
 
 	private CollisionDetails timeUntilCollision() {
-		// Find Time Until Collision and also, if there is a collision, the new speed vector.
+		// Find Time Until Collision and also, if there is a collision, the new
+		// speed vector.
 		// Create a physics.Circle from Ball
 		Circle ballCircle = ball.getCircle();
 		Vect ballVelocity = ball.getVelo();
@@ -86,28 +103,34 @@ public class Model extends Observable {
 		// Time to collide with 4 walls
 		ArrayList<LineSegment> lss = gws.getLineSegments();
 		for (LineSegment line : lss) {
-			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
+			time = Geometry.timeUntilWallCollision(line, ballCircle,
+					ballVelocity);
 			if (time < shortestTime) {
 				shortestTime = time;
 				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+			}
+		}
+		
+		// Time to collide with circles
+		for (Circle c : circles){
+			time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
+			if (time < shortestTime){
+				shortestTime = time;
+				newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity, 1.0);
 			}
 		}
 
 		// Time to collide with any vertical lines
 		for (VerticalLine line : lines) {
 			LineSegment ls = line.getLineSeg();
-			time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
+			time = Geometry
+					.timeUntilWallCollision(ls, ballCircle, ballVelocity);
 			if (time < shortestTime) {
 				shortestTime = time;
 				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
 			}
 		}
-		
-		//Time to collide with a gizmo
-//		for (IGizmo giz : gizmos){
-//			time = Geometry.timeUntilWallCollision(line, ball, velocity)
-//		}
-		
+
 		return new CollisionDetails(shortestTime, newVelo);
 	}
 
@@ -123,15 +146,62 @@ public class Model extends Observable {
 		lines.add(l);
 	}
 
-	public void setBallSpeed(int x, int y) {
+	public void setBallSpeed(float x, float y) {
 		ball.setVelo(new Vect(x, y));
 	}
+
+	public void addGizmo(IGizmo g) {
+		gizmos.add(g);
+		this.notifyObservers();
+	}
 	
-	public void addGizmo(IGizmo g){
-	gizmos.add(g);
+	public void setGizmo(ArrayList<IGizmo> gl) {
+		gizmos = gl;
+		this.notifyObservers();
+	}
+
+	public ArrayList<IGizmo> getGizmos() {
+		return gizmos;
+	}
+	
+	public ArrayList<Circle> getCircles(){
+		return circles;
+	}
+	
+	public void addCircles(Circle c){
+		circles.add(c);
+	}
+
+	public float getGravity() {
+		return gravity;
+	}
+
+	public void setGravity(float gravity) {
+		this.gravity = gravity;
+	}
+
+	public float getFriction() {
+		return friction;
+	}
+
+	public void setFriction(float friction) {
+		this.friction = friction;
+	}
+
+	public void startLoad(String in) {
+		LoadState loader = new LoadState(this);
+		setGizmo(loader.load(in));
+	}
+
+	public void startSave(String out) {
+		SaveState saver = new SaveState(this);
+		try {
+			saver.save(out);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
 
-public ArrayList<IGizmo> getGizmos(){
-	return gizmos;
-}
-}

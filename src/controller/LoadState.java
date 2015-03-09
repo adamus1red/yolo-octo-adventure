@@ -6,33 +6,32 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
-import model.Gizmo;
 import model.IGizmo;
 import model.Model;
 
-public class LoadSaveState {
+public class LoadState {
 
 	private ArrayList<IGizmo> fRead;
 	private Parser parser;
 	private Model model;
 	
 	
-	public LoadSaveState(Model m) {
+	public LoadState(Model m) {
 		fRead = new ArrayList<IGizmo>();
 		parser = new Parser();
 		model = m;
 	}
 
-	public void load(String savePath) {
+	public ArrayList<IGizmo> load(String savePath) {
 		if (checkReadable(savePath)) {
 			readFile(savePath);
 		}
+		return fRead;
 	}
 
 	private void readFile(String savePath) {
 		// TODO Auto-generated method stub
 		BufferedReader br = null;
-
 		try {
 
 			String currentLine;
@@ -43,7 +42,6 @@ public class LoadSaveState {
 				fRead.add(parser.parseIn(currentLine, model));
 				System.out.println(currentLine);
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -55,14 +53,6 @@ public class LoadSaveState {
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		}
-		addToModel();
-	}
-
-	
-	private void addToModel(){
-		for(int i=0; i < fRead.size(); i++){
-			model.addGizmo(fRead.get(i));
 		}
 	}
 	
@@ -85,5 +75,4 @@ public class LoadSaveState {
 	public void setfRead(ArrayList<IGizmo> fRead) {
 		this.fRead = fRead;
 	}
-
 }

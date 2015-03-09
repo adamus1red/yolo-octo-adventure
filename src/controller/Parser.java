@@ -1,58 +1,165 @@
 package controller;
 
-import java.util.StringTokenizer;
+import java.util.ArrayList;
 
-import model.Gizmo;
+import model.*;
 
+/**
+ * Parser for Gizmo Ball project.
+ * 
+ * @author Adam McGhie
+ *
+ */
 public class Parser {
-	private Gizmo g;
+	private IGizmo g;
 
 	public Parser() {
-		g = new Gizmo();
 	}
 
-	public Gizmo parse(String s) throws Exception {
+	/**
+	 * Generates a IGizmo implimentable objects based on an input string
+	 * @param Input String
+	 * @param Model
+	 * @return IGizmo interface complient Gizmo
+	 * @throws Exception
+	 */
+	public IGizmo parseIn(String st, Model m) throws Exception {
+		Model model = m;
+		String[] s = st.split("\\s");
 
-		String[] st = s.split("\\s");
-		if (st[0] != null) {
-			checkType(st[0]); 
+		if (s[0] != null) {
+			if (s[0].toUpperCase().matches(
+					"^CIRCLE|TRIANGLE|SQUARE|LEFTFLIPPER|RIGHTFLIPPER")) {
+				if (s[0].toUpperCase().equals("CIRCLE")) {
+					if (checkName(s[1])) {
+						g = new CircleBumper(Integer.parseInt(s[2]),
+								Integer.parseInt(s[3]), s[1], model);
+					} else {
+						throw new Exception("Bad name");
+					}
+				} else if (s[0].toUpperCase().equals("TRIANGLE")) {
+					if (checkName(s[1])) {
+						g = new TriangleBumper(Integer.parseInt(s[2]),
+								Integer.parseInt(s[3]), s[1], model);
+					} else {
+						throw new Exception("Bad name");
+					}
+				} else if (s[0].toUpperCase().equals("SQUARE")) {
+					if (checkName(s[1])) {
+						g = new SquareBumper(Integer.parseInt(s[2]),
+								Integer.parseInt(s[3]), s[1], model);
+					} else {
+						throw new Exception("Bad name");
+					}
+				} else if (s[0].toUpperCase().contains("FLIPPER")) {
+					if (checkName(s[1])) {
+						g = new Flipper(Integer.parseInt(s[2]),
+								Integer.parseInt(s[3]), s[1], model);
+					} else {
+						throw new Exception("Bad name");
+					}
+				}
+			} else if (s[0].toUpperCase().equals("BALL")) {
+				if (checkName(s[1])) { // Check name matches expected format
+					g = new Ball(Double.parseDouble(s[2]),
+							Double.parseDouble(s[3]), Double.parseDouble(s[4]),
+							Double.parseDouble(s[5]), s[1]);
+				} else {
+					throw new Exception("Bad name");
+				}
+			} else if (s[0].toUpperCase().equals("ABSORBER")) {
+				if (checkName(s[1])) { // Check name matches expected format
+					int x = Integer.parseInt(s[2]);
+					int y = Integer.parseInt(s[3]);
+					int w = x + Integer.parseInt(s[4]);
+					int v = y + Integer.parseInt(s[5]);
+					g = new Absorber(x, y, w, v, s[1], model);
+				} else {
+					throw new Exception("Bad name");
+				}
+			} else if (s[0].toUpperCase().equals("GRAVITY")) {
+				model.setGravity(Float.parseFloat(s[1]));
+			} else if (s[0].toUpperCase().equals("FRICTION")) {
+				model.setFriction(Float.parseFloat(s[1]));
+			} else if (s[0].toUpperCase().equals("ROTATE") && checkName(s[1])) {
+				ArrayList<IGizmo> gl = model.getGizmos();
+				for (int i = 0; i < gl.size(); i++) {
+					IGizmo gi = gl.get(i);
+					if (gi.getName() == s[1]) {
+						gi.setRotation(gi.getRotation() + 90);
+					}
+				}
+			} else if (s[0].toUpperCase().equals("DELETE") && checkName(s[1])) {
+				ArrayList<IGizmo> gl = model.getGizmos();
+				for (int i = 0; i < gl.size(); i++) {
+					IGizmo gi = gl.get(i);
+					if (gi.getName() == s[1]) {
+						gl.remove(i);
+					}
+				}
+				model.setGizmo(gl);
+			} else {
+				throw new Exception("Corrupt input");
+			}
 		} else {
 			return null;
 		}
 		return g;
 	}
 
-	/*
-	 * <gizmoOp> <name> <int-pair> | Absorber <name> <int-pair> <int-pair> |
-	 * Ball <name> <float-pair> <float-pair> | Rotate <name> | Delete <name> |
-	 * Move <name> <number-pair> | Connect <name> <name> | KeyConnect <keyid>
-	 * <name> | 
-	 * <gizmoOp> ::= Square | Circle | Triangle | RightFlipper |
-	 * LeftFlipper
+	/**
+	 * Takes a Gizmo object and parses it into the equivalent String for saving
+	 * to the file system
+	 * 
+	 * @param iGizmo
+	 * @return String
+	 * @throws Exception
 	 */
-
-	private String getGizmoType(String s) {
-		if (checkType(s) != null) {
-			g.setType(checkType(s));
+	public String parseOut(IGizmo iGizmo) throws Exception {
+		if (checkName(iGizmo.getName())) {
+			String r = null;
+			r = "" + iGizmo.getType() + " " + iGizmo.getName() + " "
+					+ iGizmo.getXPos() + " " + iGizmo.getYPos() + "\n";
+			System.out.println(r);
+			return r;
 		} else {
-
+			throw new Exception("Bad Name");
 		}
-		return s;
+
 	}
 
-	private String checkType(String string) {
-		if (string.toUpperCase().equals("CIRCLE")) {
-			return "Circle";
-		} else if (string.toUpperCase().equals("TRIANGLE")) {
-			return "Triangle";
-		} else if (string.toUpperCase().equals("SQUARE")) {
-			return "Square";
-		} else if (string.toUpperCase().equals("LEFTFLIPPER")) {
-			return "Flipper";
-		} else if (string.toUpperCase().equals("RIGHTFLIPPER")) {
-			return "Flipper";
+	/**
+	 * Checks to see if the name of an object is valid in the scope of the
+	 * Formal Syntax e.g. Any letter, upper and lower case, and any number 0-9
+	 * will be accepted except when it is OuterWalls Since that's reserved for a
+	 * special case
+	 * 
+	 * @param String
+	 * @return boolean
+	 */
+	private boolean checkName(String s) {
+		if (s.matches("^[a-zA-Z0-9]+")) {
+			if (s.matches("!OuterWalls")) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Checks to see if a value is a whole or real number. True means it is a
+	 * whole number, False means it's a real number
+	 * 
+	 * @param float
+	 * @return boolean
+	 */
+	private boolean isInt(float f) {
+		if (f % 1 == 0) {
+			return true;
 		} else {
-			return null;
+			return false;
 		}
 	}
 }

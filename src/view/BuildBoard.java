@@ -11,7 +11,7 @@ import model.Model;
 
 public class BuildBoard extends JPanel implements IBoard, Observer {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8200776054429574704L;
 	protected int width;
 	protected int height;
 	protected Model bbm;

@@ -6,11 +6,18 @@ public class Gizmo implements IGizmo {
 
 	private String name;
 	private Color color;
-	private String type;
-	private int startX;
-	private int startY;
-	private int endX;
-	private int endY;
+	private String type = "Gizmo";
+	private int xPos;
+	private int yPos;
+	private int rotation = 90;
+
+	public Gizmo(int x, int y) {
+		xPos = x;
+		yPos = y;
+		name = null;
+		color = Color.CYAN;
+		type = null;
+	}
 
 	public Gizmo() {
 		name = null;
@@ -18,12 +25,14 @@ public class Gizmo implements IGizmo {
 		type = null;
 	}
 
-	@Override
 	public Color getColor() {
 		// TODO Auto-generated method stub
 		return color;
 	}
-
+	
+	public void setColor(Color c) {
+		color = c;
+	}
 	@Override
 	public void setName(String s) {
 		// TODO Auto-generated method stub
@@ -36,37 +45,70 @@ public class Gizmo implements IGizmo {
 	}
 
 	@Override
-	public void setStartPoints(int x, int y) {
-		if ((x < 21) && (y < 21) && (x >= 0) && (y >= 0)) {
-			startX = x;
-			startY = y;
-		}
-	}
-	@Override
-	public void setEndPoints(int x, int y) {
-		if ((x < 21) && (y < 21) && (x >= 0) && (y >= 0)) {
-			endX = x;
-			endY = y;
+	public void setXPos(int x) {
+		if ((x < 21) && (x >= 0)) {
+			xPos = x;
 		}
 	}
 
 	@Override
-	public int getStartXPoints() {
-		return startX;
+	public void setYPos(int y) {
+		if ((y < 21) && (y >= 0)) {
+			yPos = y;
+		}
 	}
 
 	@Override
-	public int getStartYPoints() {
-		return startY;
-	}
-	
-	@Override
-	public int getEndXPoints() {
-		return endX;
+	public String getName() {
+		// TODO Auto-generated method stub
+		return name;
 	}
 
 	@Override
-	public int getEndYPoints() {
-		return endY;
+	public String getType() {
+		// TODO Auto-generated method stub
+		return type;
 	}
+
+	@Override
+	public void setRotation(int r) {
+		rotation = r;
+	}
+
+	@Override
+	public int getXPos() {
+		// TODO Auto-generated method stub
+		return xPos;
+	}
+
+	@Override
+	public int getYPos() {
+		// TODO Auto-generated method stub
+		return yPos;
+	}
+
+	@Override
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
+	@Override
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
+	@Override
+	public int getRotation() {
+		// TODO Auto-generated method stub
+		return rotation;
+	}
+
+	@Override
+	public int getRadius() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
