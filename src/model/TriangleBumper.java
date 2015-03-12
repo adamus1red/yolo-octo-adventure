@@ -21,7 +21,7 @@ public class TriangleBumper extends Gizmo implements IGizmo {
 		height = 25;
 		super.setName(n);
 		super.setType("Triangle");
-		this.color = Color.PINK;
+		this.color = Color.ORANGE;
 		// vertical lines
 		m.addLine(new LineSegment(x, y, x, y + height));
 		// m.addLine(new VerticalLine(x+w-1,y,1,h));
@@ -77,5 +77,9 @@ public class TriangleBumper extends Gizmo implements IGizmo {
 	@Override
 	public Color getColor() {
 		return color;
+	}
+	
+	public void clearLevel(){
+		
 	}
 }

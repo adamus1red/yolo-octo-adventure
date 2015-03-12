@@ -10,7 +10,7 @@ public class CircleBumper extends Gizmo implements IGizmo {
 	
 	public CircleBumper(int x, int y, String n, Model m) {
 		super(x ,y);
-		super.setColor(Color.YELLOW);
+		super.setColor(Color.MAGENTA);
 		super.setName(n);
 		super.setType("Circle");
 		// add circle  then model can deal with collisions

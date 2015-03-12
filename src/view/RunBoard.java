@@ -31,7 +31,7 @@ public class RunBoard extends JPanel implements Observer {
 		width = w;
 		height = h;
 		gm = m;
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		this.setBorder(BorderFactory.createLineBorder(Color.PINK));
 		this.setBackground(Color.BLACK);
 	}
 
@@ -48,7 +48,6 @@ public class RunBoard extends JPanel implements Observer {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
-
 		for (IGizmo gz : gm.getGizmos()) {
 			if (gz.getType().equals("Square")) {
 				g2.setColor(gz.getColor());

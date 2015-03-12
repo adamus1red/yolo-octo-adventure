@@ -25,7 +25,7 @@ public class Model extends Observable {
 	public Model() {
 
 		// Ball position (250, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball(493, 469, 100, 100, "Gball1");
+		ball = new Ball(475, 25, 100, 100, "Gball1");
 
 		// Wall size 500 x 500 pixels
 		gws = new Walls(0, 0, 500, 500);
@@ -189,6 +189,7 @@ public class Model extends Observable {
 	}
 
 	public void startLoad(String in) {
+		clearBoard();
 		LoadState loader = new LoadState(this);
 		setGizmo(loader.load(in));
 	}
@@ -201,6 +202,12 @@ public class Model extends Observable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void clearBoard(){
+		lines.clear();
+		circles.clear();
+		gizmos.clear();
 	}
 
 }

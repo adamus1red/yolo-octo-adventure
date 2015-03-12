@@ -6,9 +6,17 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
+
 import model.Model;
 import controller.RunListener;
 import controller.SetKeyBoardListener;
@@ -21,6 +29,11 @@ public class RunGui {
 	private ActionListener listener;
 	private RunBoard board;
 	private SetKeyBoardListener KBListener;
+	JMenuBar menuBar;
+	JMenu menu, submenu;
+	JMenuItem menuItem;
+	JRadioButtonMenuItem rbMenuItem;
+	JCheckBoxMenuItem cbMenuItem;
 
 	public RunGui(Model m) {
 		model = m;
@@ -32,20 +45,34 @@ public class RunGui {
 
 	public void createAndShowGUI() {
 
-		frame = new JFrame("Absorber Prototype");
+		frame = new JFrame("Gizmobaw");
 		//frame.addKeyListener(KBListener);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);		//added so that the frame size cant be adjusted
 
 		// Board is passed the Model so it can act as Observer
 		board = new RunBoard(500, 500, model);
+		menuBar = new JMenuBar();
 
 		Container cp = frame.getContentPane();
 
 		Font gf = new Font("Arial", Font.BOLD, 12);
+		
+		menu = new JMenu("Gizmo's");
+		menu.setMnemonic(KeyEvent.VK_A);
+		menu.getAccessibleContext().setAccessibleDescription(
+		        "The only menu in this program that has menu items");
+		menuBar.add(menu);
+		
+		menu = new JMenu("Another Menu");
+		menu.setMnemonic(KeyEvent.VK_N);
+		menu.getAccessibleContext().setAccessibleDescription(
+		        "This menu does nothing");
+		menuBar.add(menu);
+
 
 		JPanel buttons = new JPanel();
-		buttons.setLayout(new GridLayout(4, 1));
+		buttons.setLayout(new GridLayout(6, 3));
 
 		JButton button1 = new JButton("Start");
 		button1.setFont(gf);
@@ -58,12 +85,6 @@ public class RunGui {
 		button2.addActionListener(listener);
 		button2.setMaximumSize(new Dimension(100, 100));
 		buttons.add(button2);
-
-		JButton button4 = new JButton("Tick");
-		button4.setFont(gf);
-		button4.addActionListener(listener);
-		button4.setMaximumSize(new Dimension(100, 100));
-		buttons.add(button4);
 		
 		JButton button5 = new JButton("Load");
 		button5.setFont(gf);
@@ -77,6 +98,12 @@ public class RunGui {
 		button6.setMaximumSize(new Dimension(100, 100));
 		buttons.add(button6);
 
+		JButton button4 = new JButton("Change Mode");
+		button4.setFont(gf);
+		button4.addActionListener(listener);
+		button4.setMaximumSize(new Dimension(100, 100));
+		buttons.add(button4);
+		
 		JButton button3 = new JButton("Quit");
 		button3.setFont(gf);
 		button3.addActionListener(listener);

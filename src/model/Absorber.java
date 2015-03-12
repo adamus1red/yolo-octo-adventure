@@ -15,8 +15,9 @@ public class Absorber extends Gizmo implements IGizmo {
 		width = w;
 		height = h;
 		super.setName(n);
-		setColor(Color.ORANGE);
+		setColor(Color.RED);
 		super.setType("Absorber");
+		
 		// vertical lines
 		m.addLine(new LineSegment(x, y, x, y + height));
 		m.addLine(new LineSegment(x + width, y, x + width, y + height));
@@ -31,6 +32,12 @@ public class Absorber extends Gizmo implements IGizmo {
 		m.addCircles(new Circle(x + w, y, radius));
 		m.addCircles(new Circle(x + w, y + height, radius));
 	}
+	
+	public void collide(){
+		
+	}
+	
+	
 
 	public int getWidth() {
 		return width;
@@ -39,4 +46,6 @@ public class Absorber extends Gizmo implements IGizmo {
 	public int getHeight() {
 		return height;
 	}
+	
+	
 }

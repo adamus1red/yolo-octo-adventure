@@ -1,1 +1,13 @@
-Square s1 10 10
+Triangle t1 100 100
+Triangle t2 100 125
+Triangle t3 100 200
+Circle c1 400 400
+Circle c2 240 420
+Triangle t4 300 300
+Absorber a1 0 475 500 25
+Square s1 200 200
+Square s2 200 400
+Square s3 380 20
+Square s4 20 380
+RightFlipper f1 40 180
+LeftFlipper f2 180 180

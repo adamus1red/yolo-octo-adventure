@@ -21,17 +21,19 @@ public class Main {
 		}
 
 		Model model = new Model();
+		model.startLoad("level1.txt");
 
 		// 1L = 25
 		
 		// originally set at (200, 200)
-//		model.setBallSpeed(200, 200);
+		model.setBallSpeed(200, 200);
 //		
 //		// add square
 //		model.addGizmo(new SquareBumper(100,100, "s1",model));
 //		
 //		//add triangle
 //		model.addGizmo(new TriangleBumper(350, 350, "t1", model));
+		
 //		// add absorder
 //		model.addGizmo(new Absorber(0, 475, 500, 25, "ab1", model));
 //		model.addGizmo(new Absorber(100, 100, 300, model));
