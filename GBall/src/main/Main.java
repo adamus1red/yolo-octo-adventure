@@ -22,8 +22,7 @@ public class Main {
 		// originally set at (200, 200)
 		model.setBallSpeed(200, 200);
 
-//		BuildGui bg = new BuildGui(model);
-//		bg.createAndShowGUI();
+		
 		RunGui gui = new RunGui(model);
 		gui.createAndShowGUI();
 	}

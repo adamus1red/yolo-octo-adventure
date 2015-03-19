@@ -37,9 +37,9 @@ public class RunGui implements GBallGui {
 	public RunGui(Model m) {
 		model = m;
 		board = new RunBoard(500, 500, model);
-		buttons = new JPanel();
-		listener = new RunListener(m);
 		frame = new JFrame("Gizmobaw");
+		buttons = new JPanel();
+		listener = new RunListener(m, frame);
 	}
 
 	public void createAndShowGUI() {
@@ -88,7 +88,7 @@ public class RunGui implements GBallGui {
 		button6.setMaximumSize(new Dimension(100, 100));
 		buttons.add(button6);
 
-		JButton button4 = new JButton("Build Mode");
+		JButton button4 = new JButton("Switch Mode");
 		button4.setFont(gf);
 		button4.addActionListener(listener);
 		button4.setMaximumSize(new Dimension(100, 100));

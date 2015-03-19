@@ -3,12 +3,14 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import view.BuildGui;
-import view.GBallGui;
+import view.RunGui;
 import view.GetInput;
 import model.Model;
+import model.SquareBumper;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
@@ -19,12 +21,30 @@ public class RunListener implements ActionListener {
 	private Timer timer;
 	private Model model;
 	private GetInput gi;
-	private GBallGui bg;
+	private AddSquareBumperListener sb;
+	private AddTriangleBumperListener tb;
+	private AddCircleBumperListener cb;
+	private AddAbsorberListener a;
+	private AddLeftFlipperListener lf;
+	private AddRightFlipperListener rf;
+	private RemoveGizmoListener rg;
+	private RemoveGizmoListener sq;
+	private JFrame frame;
+
 	
-	public RunListener(Model m) {
+	public RunListener(Model m, JFrame frame) {
 		model = m;
 		timer = new Timer(50, this);
 		gi = new GetInput();
+		sb = new AddSquareBumperListener(m);
+		tb = new AddTriangleBumperListener(m);
+		cb = new AddCircleBumperListener(m);
+		a = new AddAbsorberListener(m);
+		lf = new AddLeftFlipperListener(m);
+		rf = new AddRightFlipperListener(m);
+		//rg = new RemoveGizmoListener(m);
+		//sq = new RemoveGizmoListener(m);
+		this.frame = frame;
 	}
 
 	@Override
@@ -53,9 +73,11 @@ public class RunListener implements ActionListener {
 				model.startSave(out);
 				model.hasChanged();
 				break;
-			case "Build Mode":
-				bg = new BuildGui(model);
-				bg.createAndShowGUI();
+			case "Switch Mode":
+				BuildGui bg = new BuildGui(model);
+		        bg.createAndShowGUI();
+		        frame.setVisible(false);
+				break;
 			case "Quit":
 				System.exit(0);
 				break;

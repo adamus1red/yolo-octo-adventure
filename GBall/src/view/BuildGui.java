@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +15,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
+import controller.BuildListener;
 import model.Model;
 
 public class BuildGui implements GBallGui {
@@ -28,6 +31,7 @@ public class BuildGui implements GBallGui {
 	JPanel rightPanel;
 	JMenu menu;
 	JMenuItem menuItem;
+	private BuildListener bl;
 
 	public BuildGui(Model m) {
 		this.model = m;
@@ -35,6 +39,7 @@ public class BuildGui implements GBallGui {
 		leftPanel = new JPanel();
 		frame = new JFrame("Build Mode");
 		 menu = new JMenu("Portfolio");
+		 bl = new BuildListener(m, frame);
 	}
 
 	public void createAndShowGUI() {
@@ -50,9 +55,10 @@ public class BuildGui implements GBallGui {
 		createJPanels();
 
 		cp.add(leftPanel, BorderLayout.LINE_START);
-		// cp.add(board, BorderLayout.CENTER);
+		//cp.add(board, BorderLayout.CENTER);
 
-//		 frame.pack();
+
+		//frame.pack();
 		frame.setSize(600, 500);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -77,7 +83,14 @@ public class BuildGui implements GBallGui {
 		addBumper.addActionListener(listener);
 		addBumper.setMaximumSize(new Dimension(100, 100));
 		leftPanel.add(addBumper);
-	}
+	
+	
+	JButton switchMode = new JButton("Switch Mode");
+	switchMode.setFont(font);
+	switchMode.addActionListener(bl);
+	switchMode.setMaximumSize(new Dimension(100, 100));
+	leftPanel.add(switchMode);
+}
 
 	@Override
 	public void createMenu() {
@@ -95,6 +108,11 @@ public class BuildGui implements GBallGui {
 		save.setToolTipText("Save Game");
 //		save.addActionListener();
 		fileMenu.add(save);
+		
+		JMenuItem quit = new JMenuItem("Quit", 'Q');
+		quit.setToolTipText("Quit Game");
+//		save.addActionListener();
+		fileMenu.add(quit);
 		
 		menu.add(fileMenu);
 		frame.setJMenuBar(menu);
