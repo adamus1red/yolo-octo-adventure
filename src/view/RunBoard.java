@@ -49,7 +49,11 @@ public class RunBoard extends JPanel implements Observer {
 
 		Graphics2D g2 = (Graphics2D) g;
 		for (IGizmo gz : gm.getGizmos()) {
-			if (gz.getType().equals("Square")) {
+			 if (gz.getType().equals("Square")) {
+					g2.setColor(gz.getColor());
+					g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
+							gz.getHeight());
+			 }else if (gz.getType().equals("Square")) {
 				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
@@ -93,14 +97,16 @@ public class RunBoard extends JPanel implements Observer {
 //			g2.drawLine((int) l.p1().x(), (int) l.p1().y(), (int) l.p2().x(),
 //					(int) l.p2().y());
 //		}
-
-		Ball b = gm.getBall();
+		for(int i = 0; i <gm.getBalls().size(); i++){
+			
+		Ball b = gm.getBalls().get(i);
 		if (b != null) {
 			g2.setColor(b.getColour());
 			int x = (int) (b.getExactX() - b.getRadius());
 			int y = (int) (b.getExactY() - b.getRadius());
 			int width = (int) (2 * b.getRadius());
 			g2.fillOval(x, y, width, width);
+		}
 		}
 	}
 
