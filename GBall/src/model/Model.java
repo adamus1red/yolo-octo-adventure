@@ -154,6 +154,11 @@ public class Model extends Observable {
 		gizmos.add(g);
 		this.notifyObservers();
 	}
+
+	public void removeGizmo(IGizmo g) {
+		gizmos.remove(g);
+		this.notifyObservers();
+	}
 	
 	public void setGizmo(ArrayList<IGizmo> gl) {
 		gizmos = gl;

@@ -8,8 +8,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+=======
+>>>>>>> origin/master
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -18,12 +21,17 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+<<<<<<< HEAD
 import javax.swing.event.MouseInputListener;
 
 import controller.AddCircleBumperListener;
 import controller.BuildListener;
 import model.CircleBumper;
 import model.IGizmo;
+=======
+
+import controller.BuildListener;
+>>>>>>> origin/master
 import model.Model;
 
 public class BuildGui implements GBallGui {
@@ -35,15 +43,27 @@ public class BuildGui implements GBallGui {
 	private final Font font = new Font("Arial", Font.BOLD, 12);
 	JMenuBar menuBar;
 	JPanel leftPanel;
+<<<<<<< HEAD
 
 	BuildListener bl;
+=======
+	JPanel rightPanel;
+	JMenu menu;
+	JMenuItem menuItem;
+	private BuildListener bl;
+>>>>>>> origin/master
 
 	public BuildGui(Model m) {
 		this.model = m;
 		board = new BuildBoard(500, 500, model);
 		frame = new JFrame("Build Mode");
+<<<<<<< HEAD
 		leftPanel = new JPanel();
 		listener = new BuildListener(m, frame);
+=======
+		 menu = new JMenu("Portfolio");
+		 bl = new BuildListener(m, frame);
+>>>>>>> origin/master
 	}
 
 	public void createAndShowGUI() {
@@ -58,9 +78,17 @@ public class BuildGui implements GBallGui {
 		createMenu();
 
 		cp.add(leftPanel, BorderLayout.LINE_START);
+<<<<<<< HEAD
 		cp.add(board, BorderLayout.CENTER);
 
 		frame.pack();
+=======
+		//cp.add(board, BorderLayout.CENTER);
+
+
+		//frame.pack();
+		frame.setSize(600, 500);
+>>>>>>> origin/master
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
@@ -87,6 +115,7 @@ public class BuildGui implements GBallGui {
 		addBumper.addActionListener(listener);
 		addBumper.setMaximumSize(new Dimension(100, 100));
 		leftPanel.add(addBumper);
+<<<<<<< HEAD
 
 		JButton switchMode = new JButton("Switch Mode");
 		switchMode.setFont(font);
@@ -94,6 +123,16 @@ public class BuildGui implements GBallGui {
 		switchMode.setMaximumSize(new Dimension(100, 100));
 		leftPanel.add(switchMode);
 	}
+=======
+	
+	
+	JButton switchMode = new JButton("Switch Mode");
+	switchMode.setFont(font);
+	switchMode.addActionListener(bl);
+	switchMode.setMaximumSize(new Dimension(100, 100));
+	leftPanel.add(switchMode);
+}
+>>>>>>> origin/master
 
 	@Override
 	public void createMenu() {
@@ -111,12 +150,21 @@ public class BuildGui implements GBallGui {
 		save.setToolTipText("Save Game");
 		// save.addActionListener();
 		fileMenu.add(save);
+<<<<<<< HEAD
 
 		JMenuItem quit = new JMenuItem("Quit", 'Q');
 		quit.setToolTipText("Quit Game");
 		// save.addActionListener();
 		fileMenu.add(quit);
 
+=======
+		
+		JMenuItem quit = new JMenuItem("Quit", 'Q');
+		quit.setToolTipText("Quit Game");
+//		save.addActionListener();
+		fileMenu.add(quit);
+		
+>>>>>>> origin/master
 		menu.add(fileMenu);
 		frame.setJMenuBar(menu);
 

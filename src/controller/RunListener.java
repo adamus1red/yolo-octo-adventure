@@ -41,12 +41,12 @@ public class RunListener implements ActionListener {
 				model.moveBall();
 				break;
 			case "Load":
-				String in = gi.showPopup("Please enter the path to the correct level to load", model);
+				String in = gi.showOpenPopup("Please enter the path to the correct level to load", model);
 				model.startLoad(in);
 				model.hasChanged();
 				break;
 			case "Save":
-				String out = gi.showPopup("Please enter the path to save the level to", model);
+				String out = gi.showSavePopup("Please enter the path to save the level to", model);
 				model.startSave(out);
 				model.hasChanged();
 				break;

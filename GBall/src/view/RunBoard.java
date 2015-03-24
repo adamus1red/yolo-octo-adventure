@@ -32,11 +32,22 @@ public class RunBoard extends JPanel implements Observer {
 	}
 
 	// Fix onscreen size
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> origin/master
 	public Dimension getPreferredSize() {
 		return new Dimension(width, height);
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * Does magic
+	 * 
+	 * @param g
+	 */
+>>>>>>> origin/master
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 

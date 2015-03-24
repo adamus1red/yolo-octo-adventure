@@ -1,0 +1,20 @@
+Square s1 0 0
+Square s2 25 25
+Square s3 50 50
+Triangle t1 25 0
+Triangle t3 80 110
+Circle c1 70 420
+Circle c2 420 70
+Circle c3 490 490
+Circle c4 230 270
+Square s4 340 110
+Square s5 300 250
+Square s6 275 180
+Triangle t4 50 25
+Triangle t5 75 50
+Square s1 0 0
+Square s2 25 25
+Square s3 50 50
+
+
+
