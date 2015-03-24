@@ -7,5 +7,5 @@ public interface IBoard {
 
 	void paintComponent(Graphics g);
 	
-	Dimension getPrefferedSize();
+	Dimension getPreferredSize();
 }

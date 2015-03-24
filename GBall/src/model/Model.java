@@ -170,6 +170,8 @@ public class Model extends Observable {
 	
 	public void addCircles(Circle c){
 		circles.add(c);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public float getGravity() {

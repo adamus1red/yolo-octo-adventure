@@ -6,7 +6,11 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +18,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputListener;
+
+import controller.AddCircleBumperListener;
+import controller.BuildListener;
+import model.CircleBumper;
+import model.IGizmo;
 import model.Model;
 
 public class BuildGui implements GBallGui {
@@ -25,35 +35,33 @@ public class BuildGui implements GBallGui {
 	private final Font font = new Font("Arial", Font.BOLD, 12);
 	JMenuBar menuBar;
 	JPanel leftPanel;
-	JPanel rightPanel;
-	JMenu menu;
-	JMenuItem menuItem;
+
+	BuildListener bl;
 
 	public BuildGui(Model m) {
 		this.model = m;
 		board = new BuildBoard(500, 500, model);
-		leftPanel = new JPanel();
 		frame = new JFrame("Build Mode");
-		 menu = new JMenu("Portfolio");
+		leftPanel = new JPanel();
+		listener = new BuildListener(m, frame);
 	}
 
 	public void createAndShowGUI() {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
+		frame.getContentPane().addMouseListener(new AddCircleBumperListener(model));
 
 		Container cp = frame.getContentPane();
 
-		leftPanel.setLayout(new GridLayout(6, 3));
+		leftPanel.setLayout(new GridLayout(10, 10));
 
 		createButtons();
 		createMenu();
-		createJPanels();
 
 		cp.add(leftPanel, BorderLayout.LINE_START);
-		// cp.add(board, BorderLayout.CENTER);
+		cp.add(board, BorderLayout.CENTER);
 
-//		 frame.pack();
-		frame.setSize(600, 500);
+		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
@@ -61,9 +69,12 @@ public class BuildGui implements GBallGui {
 
 	@Override
 	public void createButtons() {
+
 		JButton addGizmo = new JButton("addGizmo");
 		addGizmo.setFont(font);
+		addGizmo.addActionListener(listener);
 		addGizmo.setMaximumSize(new Dimension(100, 100));
+				
 		leftPanel.add(addGizmo);
 
 		JButton addball = new JButton("addBall");
@@ -77,40 +88,38 @@ public class BuildGui implements GBallGui {
 		addBumper.addActionListener(listener);
 		addBumper.setMaximumSize(new Dimension(100, 100));
 		leftPanel.add(addBumper);
+
+		JButton switchMode = new JButton("Switch Mode");
+		switchMode.setFont(font);
+		switchMode.addActionListener(listener);
+		switchMode.setMaximumSize(new Dimension(100, 100));
+		leftPanel.add(switchMode);
 	}
 
 	@Override
 	public void createMenu() {
-		
+
 		JMenuBar menu = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic('F');
 
 		JMenuItem load = new JMenuItem("Load", 'L');
 		load.setToolTipText("Load a level");
-//		load.addActionListener();
+		// load.addActionListener();
 		fileMenu.add(load);
-		
+
 		JMenuItem save = new JMenuItem("Save", 'S');
 		save.setToolTipText("Save Game");
-//		save.addActionListener();
+		// save.addActionListener();
 		fileMenu.add(save);
-		
+
+		JMenuItem quit = new JMenuItem("Quit", 'Q');
+		quit.setToolTipText("Quit Game");
+		// save.addActionListener();
+		fileMenu.add(quit);
+
 		menu.add(fileMenu);
 		frame.setJMenuBar(menu);
-		
+
 	}
-
-	private void createJPanels() {
-		JPanel panel = new JPanel(new GridLayout(20, 20, -1, -1));
-		panel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-
-		for (int i = 0; i < (20 * 20); i++) {
-			final JPanel jp = new JPanel();
-			jp.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-			panel.add(jp);
-			frame.add(panel);
-		}
-	}
-
 }

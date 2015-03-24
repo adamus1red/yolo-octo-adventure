@@ -15,7 +15,7 @@ public class Absorber extends Gizmo implements IGizmo {
 		width = w;
 		height = h;
 		super.setName(n);
-		setColor(Color.RED);
+		setColor(Color.PINK);
 		super.setType("Absorber");
 		
 		// vertical lines
