@@ -49,7 +49,6 @@ public class BuildGui implements GBallGui {
 	public void createAndShowGUI() {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.getContentPane().addMouseListener(new AddCircleBumperListener(model));
 
 		Container cp = frame.getContentPane();
 

@@ -39,6 +39,7 @@ public class BuildListener implements ActionListener, MouseInputListener{
 
 		switch (e.getActionCommand()) {
 		case "addGizmo":
+			frame.getContentPane().addMouseListener(new AddCircleBumperListener(model));
 			break;
 		case "removeGizmo":
 			break;
