@@ -1,0 +1,4 @@
+Square s1 100 100
+Triangle t1 350 350
+Circle c1 260 25
+Circle c2 250 250
