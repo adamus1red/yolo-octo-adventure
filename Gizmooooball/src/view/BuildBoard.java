@@ -58,8 +58,30 @@ public class BuildBoard extends JPanel implements Observer {
 		}
 
 		for (IGizmo gz : buildModel.getGizmos()) {
-			if (gz.getType().equals("Circle")) {
+			if (gz.getType().equals("Square")) {
 				g2.setColor(gz.getColor());
+				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
+						gz.getHeight());
+			} else if (gz.getType().equals("Absorber")) {
+				g2.setColor(gz.getColor());
+				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
+						gz.getHeight());
+			} else if (gz.getType().equals("Circle")) {
+				g2.setColor(gz.getColor());
+				g2.fillOval(gz.getXPos() - gz.getRadius(),
+						gz.getYPos() - gz.getRadius(), gz.getRadius() * 2,
+						gz.getRadius() * 2);
+			} else if (gz.getType().equals("Triangle")) {
+				g2.setColor(gz.getColor());
+				int[] xPoints = { gz.getXPos(), gz.getXPos(),
+						gz.getXPos() + gz.getWidth() };
+				int[] yPoints = { gz.getYPos(), gz.getYPos() + gz.getHeight(),
+						gz.getYPos() + gz.getHeight() };
+				g2.fillPolygon(xPoints, yPoints, 3);
+			} else if (gz.getType().toLowerCase().contains("flipper")) {
+				g2.setColor(gz.getColor());
+				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
+						gz.getHeight());
 				ArrayList<Circle> gc = buildModel.getCircles();
 				for (int i = 0; i < gc.size(); i++) {
 					g2.fillOval((int) (gc.get(i).getCenter().x() - gc.get(i)
@@ -70,47 +92,8 @@ public class BuildBoard extends JPanel implements Observer {
 									.getRadius() * 2));
 				}
 			}
-				if (gz.getType().equals("Square")) {
-					g2.setColor(gz.getColor());
-					ArrayList<IGizmo> gs = buildModel.getGizmos();
-					for (int i = 0; i < gs.size(); i++){
-						g2.fillRect((int) (gs.get(i).getXPos()), gs.get(i).getYPos(), gs.get(i).getHeight(), gs.get(i).getWidth());
-					}
-				}
-			
-					if (gz.getType().equals("Triangle")) {
-						g2.setColor(gz.getColor());
-						
-						ArrayList<IGizmo> gs = buildModel.getGizmos();
-						for (int i = 0; i < gs.size(); i++){
-							int[] xPoints = { gz.getXPos(), gz.getXPos(),
-									gz.getXPos() + gz.getWidth() };
-							int[] yPoints = { gz.getYPos(), gz.getYPos() + gz.getHeight(),
-									gz.getYPos() + gz.getHeight() };
-							g2.fillPolygon(xPoints, yPoints, 3);	
-				}
-			}
-					if (gz.getType().equals(equals("Absorber"))){
-						g2.setColor(gz.getColor());
-						ArrayList<IGizmo> gs = buildModel.getGizmos();
-						for (int i = 0; i < gs.size(); i++){
-							g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(), gz.getHeight());
-						}
-					}
-					if (gz.getType().toLowerCase().contains("flipper")){
-						g2.setColor(gz.getColor());
-						g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(), gz.getHeight());
-						ArrayList<Circle> gc = buildModel.getCircles();
-						for (int i = 0; i < gc.size(); i++) {
-							g2.fillOval((int) (gc.get(i).getCenter().x() - gc.get(i).getRadius()),
-									(int) (gc.get(i).getCenter().y() - gc.get(i).getRadius()),
-									(int) (gc.get(i).getRadius() * 2), (int) (gc.get(i).getRadius() * 2));
-	
-						}
-					}
 		}
 	}
-	
 
 	@Override
 	public void update(Observable o, Object arg) {

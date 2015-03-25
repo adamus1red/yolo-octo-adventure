@@ -22,55 +22,36 @@ import model.IGizmo;
 import model.Model;
 import model.SquareBumper;
 
-public class BuildListener implements ActionListener, MouseInputListener{
+public class BuildListener implements ActionListener {
 
 	private Model model;
 	private GetInput gi;
 	private GBallGui runGui;
 	private JFrame frame;
-	private MouseInputListener mouseListener;
 	private IGizmo gz;
+	private AddGizmoListener agl;
 
 	public BuildListener(Model m, JFrame frame) {
 		model = m;
 		gz = new Gizmo();
 		gi = new GetInput();
 		this.frame = frame;
+		agl = new AddGizmoListener(model);
+		frame.getContentPane().addMouseListener(agl);
 	}
 
 	@Override
 	public final void actionPerformed(final ActionEvent e) {
+		
+		agl.setType(e.getActionCommand());
+
 		switch (e.getActionCommand()) {
-		case "addCircle":
-			frame.getContentPane().addMouseListener(new AddCircleBumperListener(model));
-	
-			break;
-		case "addSquare":
-			frame.getContentPane().addMouseListener(new AddSquareBumperListener(model));
-			
-			break;
-		case "addTriangle":
-			frame.getContentPane().addMouseListener(new AddTriangleBumperListener(model));
-			break;
-		case "addAbsorber":
-			frame.getContentPane().addMouseListener(new AddAbsorberListener(model));
-			break;
-		case "addRightFlipper":
-			frame.getContentPane().addMouseListener(new AddRightFlipperListener(model));
-			break;
-		case "addLeftFlipper":
-			frame.getContentPane().addMouseListener(new AddLeftFlipperListener(model));
-			break;
-		case "removeGizmo":
-			break;
-		case "addBall":
-			break;
 		case "Switch Mode":
 			frame.setVisible(false);
 			frame.dispose();
 			runGui = new RunGui(model = new Model());
 			model.setBallSpeed(200, 200);
-			model.startLoad("Level5.txt");
+			model.startLoad("LevelMurray.txt");
 			runGui.createAndShowGUI();
 			break;
 
@@ -79,43 +60,5 @@ public class BuildListener implements ActionListener, MouseInputListener{
 			break;
 		}
 
-	}
-	public void setMouseListener(MouseInputListener ml){
-		mouseListener = ml;
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		mouseListener.mouseClicked(e);
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		mouseListener.mousePressed(e);
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		mouseListener.mouseReleased(e);
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		mouseListener.mouseEntered(e);
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		mouseListener.mouseExited(e);
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		mouseListener.mouseDragged(e);
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		mouseListener.mouseMoved(e);
 	}
 }
