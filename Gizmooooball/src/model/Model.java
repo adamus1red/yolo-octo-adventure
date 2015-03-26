@@ -21,11 +21,14 @@ public class Model extends Observable {
 	private Walls gws;
 	private float gravity;
 	private float friction;
+	private double mu = 0.025;
+	private double mu2 = 0.00125;
+	private double deltaT = 0.05;
 	
 	public Model() {
 
 		// Ball position (250, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball(475, 25, 100, 100, "Gball1");
+		ball = new Ball(475, 25, 0, 0, "Gball1");
 
 		// Wall size 500 x 500 pixels
 		gws = new Walls(0, 0, 500, 500);
@@ -46,8 +49,15 @@ public class Model extends Observable {
 	public void moveBall() {
 
 		double moveTime = 0.05; // 0.05 = 20 times per second as per Gizmoball
+	
 
 		if (ball != null && !ball.stopped()) {
+			
+			//Vnew = Vold * (1 - mu * delta_t - mu2 * |Vold| * delta_t).
+			double frictionX = ball.getVelo().x() * (1 - mu * deltaT - mu2 * Math.abs(ball.getVelo().x() * deltaT));
+			double frictionY = ball.getVelo().y() * (1 - mu * deltaT - mu2 * Math.abs(ball.getVelo().y() * deltaT));
+			Vect velo = new Vect(frictionX,frictionY+25);
+			ball.setVelo(velo);
 
 			CollisionDetails cd = timeUntilCollision();
 			double tuc = cd.getTuc();
@@ -105,8 +115,7 @@ public class Model extends Observable {
 		// Time to collide with 4 walls
 		ArrayList<LineSegment> lss = gws.getLineSegments();
 		for (LineSegment line : lss) {
-			time = Geometry.timeUntilWallCollision(line, ballCircle,
-					ballVelocity);
+			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
 			if (time < shortestTime) {
 				shortestTime = time;
 				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
@@ -175,6 +184,7 @@ public class Model extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
+		
 
 	public float getGravity() {
 		return gravity;

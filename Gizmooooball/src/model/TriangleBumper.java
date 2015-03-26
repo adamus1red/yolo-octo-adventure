@@ -39,6 +39,10 @@ public class TriangleBumper extends Gizmo implements IGizmo {
 		m.addCircles(new Circle(x, y + height, radius));
 		m.addCircles(new Circle(x + width, y + height, radius));
 	}
+	
+	public void rotateTriangle(){
+		
+	}
 
 	@Override
 	public int getXPos() {
