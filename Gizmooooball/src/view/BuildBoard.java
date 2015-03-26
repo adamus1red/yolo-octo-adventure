@@ -4,18 +4,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import physics.Circle;
+import model.Ball;
 import model.IGizmo;
 import model.Model;
 
@@ -82,7 +79,7 @@ public class BuildBoard extends JPanel implements Observer {
 				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
-				ArrayList<Circle> gc = buildModel.getCircles();
+				ArrayList<Circle> gc = buildModel.getFlipperCircles();
 				for (int i = 0; i < gc.size(); i++) {
 					g2.fillOval((int) (gc.get(i).getCenter().x() - gc.get(i)
 							.getRadius()),
@@ -92,6 +89,15 @@ public class BuildBoard extends JPanel implements Observer {
 									.getRadius() * 2));
 				}
 			}
+		}
+		
+		Ball b = buildModel.getBall();
+		if (b != null) {
+			g2.setColor(b.getColour());
+			int x = (int) (b.getExactX() - b.getRadius());
+			int y = (int) (b.getExactY() - b.getRadius());
+			int width = (int) (2 * b.getRadius());
+			g2.fillOval(x, y, width, width);
 		}
 	}
 

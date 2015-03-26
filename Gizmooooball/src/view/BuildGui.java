@@ -16,7 +16,7 @@ import controller.BuildListener;
 import model.Model;
 
 public class BuildGui implements GBallGui {
-
+	
 	private JFrame frame;
 	private ActionListener listener;
 	private BuildBoard board;
@@ -32,7 +32,7 @@ public class BuildGui implements GBallGui {
 		board = new BuildBoard(500, 500, model);
 		frame = new JFrame("Gizmoball Build Mode");
 		leftPanel = new JPanel();
-		listener = new BuildListener(m, frame);
+		listener = new BuildListener(m, frame, board);
 	}
 
 	public void createAndShowGUI() {
@@ -100,12 +100,30 @@ public class BuildGui implements GBallGui {
 		addRightFlipper.addActionListener(listener);
 		addRightFlipper.setMaximumSize(new Dimension(100, 100));
 		leftPanel.add(addRightFlipper);
+		
+		JButton start = new JButton("Start");
+		start.setFont(font);
+		start.addActionListener(listener);
+		start.setMaximumSize(new Dimension(100, 100));
+		leftPanel.add(start);
 
 		JButton switchMode = new JButton("Switch Mode");
 		switchMode.setFont(font);
 		switchMode.addActionListener(listener);
 		switchMode.setMaximumSize(new Dimension(100, 100));
 		leftPanel.add(switchMode);
+		
+		JButton removeGizmo = new JButton("Remove Gizmo");
+		removeGizmo.setFont(font);
+		removeGizmo.addActionListener(listener);
+		removeGizmo.setMaximumSize(new Dimension(100, 100));
+		leftPanel.add(removeGizmo);
+		
+		JButton clearBoard = new JButton("Clear Board");
+		clearBoard.setFont(font);
+		clearBoard.addActionListener(listener);
+		clearBoard.setMaximumSize(new Dimension(100, 100));
+		leftPanel.add(clearBoard);
 	}
 
 	@Override

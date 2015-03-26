@@ -9,7 +9,6 @@ public class SquareBumper extends Gizmo implements IGizmo {
 	private int width;
 	private int height;
 	private final int radius = 0; // 10 for testing change to 0 when not
-	private Color color;
 
 	public SquareBumper(int x, int y, String n, Model m) {
 		super(x, y);

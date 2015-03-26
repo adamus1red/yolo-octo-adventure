@@ -58,9 +58,11 @@ public class RunListener implements ActionListener {
 				model.hasChanged();
 				break;
 			case "Switch Mode":
+				timer.stop();
 				frame.setVisible(false);
 				frame.dispose();
 				bg = new BuildGui(model = new Model());
+				model.setBallSpeed(200, 200);
 				bg.createAndShowGUI();
 				break;
 			case "Quit":

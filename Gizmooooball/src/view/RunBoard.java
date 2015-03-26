@@ -66,7 +66,7 @@ public class RunBoard extends JPanel implements Observer {
 				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
-				ArrayList<Circle> gc = gm.getCircles();
+				ArrayList<Circle> gc = gm.getFlipperCircles();
 				for (int i = 0; i < gc.size(); i++) {
 					g2.fillOval((int) (gc.get(i).getCenter().x() - gc.get(i)
 							.getRadius()),
