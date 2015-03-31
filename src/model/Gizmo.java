@@ -1,6 +1,10 @@
 package model;
 
 import java.awt.Color;
+import java.util.ArrayList;
+
+import physics.Circle;
+import physics.LineSegment;
 
 public class Gizmo implements IGizmo {
 
@@ -10,6 +14,8 @@ public class Gizmo implements IGizmo {
 	private int xPos;
 	private int yPos;
 	private int rotation = 90;
+	protected ArrayList<Circle> circles;
+	protected ArrayList<LineSegment> lines;
 
 	public Gizmo(int x, int y) {
 		xPos = x;
@@ -111,4 +117,19 @@ public class Gizmo implements IGizmo {
 		return 0;
 	}
 
+	@Override
+	public ArrayList<LineSegment> getLines() {
+		return lines;
+	}
+
+	@Override
+	public ArrayList<Circle> getCircles() {
+		return circles;
+	}
+
+	@Override
+	public void setColor() {
+		// TODO Auto-generated method stub
+		
+	}
 }

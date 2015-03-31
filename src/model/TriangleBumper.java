@@ -1,11 +1,12 @@
 package model;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import physics.Circle;
 import physics.LineSegment;
 
-public class TriangleBumper extends Gizmo implements IGizmo {
+public class TriangleBumper extends Gizmo {
 
 	private int xpos;
 	private int ypos;
@@ -22,22 +23,23 @@ public class TriangleBumper extends Gizmo implements IGizmo {
 		super.setName(n);
 		super.setType("Triangle");
 		this.color = Color.ORANGE;
+		super.circles = new ArrayList<>();
+		super.lines = new ArrayList<>();
+		
 		// vertical lines
-		m.addLine(new LineSegment(x, y, x, y + height));
-		// m.addLine(new VerticalLine(x+w-1,y,1,h));
+		super.lines.add(new LineSegment(x, y, x, y + height));
 
 		// horizontal lines
-		// m.addLine(new VerticalLine(x, y, w, 1));
-		m.addLine(new LineSegment(x, y + height, x + width, y + height));
+		super.lines.add(new LineSegment(x, y + height, x + width, y + height));
 
 		// diagonal lines
-		m.addLine(new LineSegment(x, y, x + width, y + height));
+		super.lines.add(new LineSegment(x, y, x + width, y + height));
 
 		// for ends of the lines
-		m.addCircles(new Circle(x, y, radius));
-		// m.addCircles(new Circle(x, y + h, radius));
-		m.addCircles(new Circle(x, y + height, radius));
-		m.addCircles(new Circle(x + width, y + height, radius));
+		super.circles.add(new Circle(x, y, radius));
+		super.circles.add(new Circle(x, y + height, radius));
+		super.circles.add(new Circle(x + width, y + height, radius));
+		m.addGizmo(this);
 	}
 
 	@Override
@@ -79,7 +81,7 @@ public class TriangleBumper extends Gizmo implements IGizmo {
 		return color;
 	}
 	
-	public void clearLevel(){
-		
+	public void setColor(){
+		this.color = Color.CYAN;
 	}
 }

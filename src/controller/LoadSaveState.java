@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
-
-import model.Gizmo;
 import model.IGizmo;
 import model.Model;
 
