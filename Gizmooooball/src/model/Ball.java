@@ -1,8 +1,10 @@
 package model;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import physics.Circle;
+import physics.LineSegment;
 import physics.Vect;
 
 
@@ -156,5 +158,23 @@ public class Ball implements IGizmo{
 	public Color getColor() {
 		// TODO Auto-generated method stub
 		return colour;
+	}
+
+	@Override
+	public ArrayList<LineSegment> getLines() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Circle> getCircles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setColor() {
+		// TODO Auto-generated method stub
+		
 	}
 }

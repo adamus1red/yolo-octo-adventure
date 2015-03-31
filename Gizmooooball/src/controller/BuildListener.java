@@ -2,26 +2,16 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import javax.swing.WindowConstants;
-import javax.swing.event.MouseInputListener;
-import javax.xml.bind.Marshaller.Listener;
 
-import physics.Circle;
 import view.BuildBoard;
-import view.BuildGui;
 import view.GBallGui;
 import view.GetInput;
 import view.RunGui;
-import model.CircleBumper;
-import model.Gizmo;
-import model.IGizmo;
+import model.Ball;
 import model.Model;
-import model.SquareBumper;
 
 public class BuildListener implements ActionListener {
 
@@ -30,24 +20,27 @@ public class BuildListener implements ActionListener {
 	private JFrame frame;
 	private AddGizmoListener agl;
 	private RemoveGizmoListener rgl;
-	private RotateGizmoListener rotate;
 	private Timer timer;
+	private GetInput gi;
 	private BuildBoard b;
 
 	public BuildListener(Model m, JFrame frame, BuildBoard b) {
 		model = m;
 		this.b = b;
 		this.frame = frame;
+		gi = new GetInput();
 		this.timer = new Timer(50, this);
-		agl = new AddGizmoListener(m);
-		rgl = new RemoveGizmoListener(m);
-		rotate = new RotateGizmoListener(m);
+		agl = new AddGizmoListener(model);
+		rgl = new RemoveGizmoListener(model);
 	}
 
 	@Override
 	public final void actionPerformed(final ActionEvent e) {
 		if (e.getSource() == timer) {
-			model.moveBall();
+			for (int i=0; i<model.getBalls().size();i++){
+				Ball ball = model.getBalls().get(i);
+					model.moveBalls(ball);
+				}
 		} else {
 
 			switch (e.getActionCommand()) {
@@ -55,9 +48,21 @@ public class BuildListener implements ActionListener {
 				timer.start();
 				break;
 			case "Remove Gizmo":
-				b.removeMouseListener(rotate);
 				b.removeMouseListener(agl);
 				b.addMouseListener(rgl);
+				break;
+			case "Load":
+				String in = gi.showOpenPopup(
+						"Please enter the path to the correct level to load",
+						model);
+				model.startLoad(in);
+				model.hasChanged();
+				break;
+			case "Save":
+				String out = gi.showSavePopup(
+						"Please enter the path to save the level to", model);
+				model.startSave(out);
+				model.hasChanged();
 				break;
 			case "Switch Mode":
 				timer.stop();
@@ -74,17 +79,10 @@ public class BuildListener implements ActionListener {
 			case "Quit":
 				System.exit(0);
 				break;
-			case "Rotate Gizmo":
-				System.err.println("FUCKING WORK");
-				b.removeMouseListener(agl);
+			default :
 				b.removeMouseListener(rgl);
-				b.addMouseListener(rotate);
-				System.err.println("Something fucking worked");
-			default:
-				b.removeMouseListener(rgl);
-				b.removeMouseListener(rotate);
-				b.addMouseListener(agl);
 				agl.setType(e.getActionCommand());
+				b.addMouseListener(agl);
 				break;
 			}
 

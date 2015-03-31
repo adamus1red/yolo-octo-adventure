@@ -4,14 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-
-import physics.Circle;
 import model.Ball;
 import model.IGizmo;
 import model.Model;
@@ -55,49 +51,51 @@ public class BuildBoard extends JPanel implements Observer {
 		}
 
 		for (IGizmo gz : buildModel.getGizmos()) {
-			if (gz.getType().equals("Square")) {
+			switch (gz.getType()) {
+			case "Square":
 				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
-			} else if (gz.getType().equals("Absorber")) {
+				break;
+			case "Absorber":
 				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
-			} else if (gz.getType().equals("Circle")) {
+				break;
+			case "Circle":
 				g2.setColor(gz.getColor());
 				g2.fillOval(gz.getXPos() - gz.getRadius(),
 						gz.getYPos() - gz.getRadius(), gz.getRadius() * 2,
 						gz.getRadius() * 2);
-			} else if (gz.getType().equals("Triangle")) {
+				break;
+			case "Triangle":
 				g2.setColor(gz.getColor());
 				int[] xPoints = { gz.getXPos(), gz.getXPos(),
 						gz.getXPos() + gz.getWidth() };
 				int[] yPoints = { gz.getYPos(), gz.getYPos() + gz.getHeight(),
 						gz.getYPos() + gz.getHeight() };
 				g2.fillPolygon(xPoints, yPoints, 3);
-			} else if (gz.getType().toLowerCase().contains("flipper")) {
+				break;
+			case "Flipper":
 				g2.setColor(gz.getColor());
-				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
-						gz.getHeight());
-				ArrayList<Circle> gc = buildModel.getFlipperCircles();
-				for (int i = 0; i < gc.size(); i++) {
-					g2.fillOval((int) (gc.get(i).getCenter().x() - gc.get(i)
-							.getRadius()),
-							(int) (gc.get(i).getCenter().y() - gc.get(i)
-									.getRadius()),
-							(int) (gc.get(i).getRadius() * 2), (int) (gc.get(i)
-									.getRadius() * 2));
-				}
+				g2.fillRoundRect(gz.getXPos(),
+						gz.getYPos() - (gz.getWidth() / 2), gz.getWidth(),
+						gz.getHeight() + gz.getWidth(), gz.getWidth(),
+						gz.getWidth());
+				break;
 			}
 		}
-		
-		Ball b = buildModel.getBall();
-		if (b != null) {
-			g2.setColor(b.getColour());
-			int x = (int) (b.getExactX() - b.getRadius());
-			int y = (int) (b.getExactY() - b.getRadius());
-			int width = (int) (2 * b.getRadius());
-			g2.fillOval(x, y, width, width);
+
+		for (int i = 0; i < buildModel.getBalls().size(); i++) {
+
+			Ball b = buildModel.getBalls().get(i);
+			if (b != null) {
+				g2.setColor(b.getColour());
+				int x = (int) (b.getExactX() - b.getRadius());
+				int y = (int) (b.getExactY() - b.getRadius());
+				int width = (int) (2 * b.getRadius());
+				g2.fillOval(x, y, width, width);
+			}
 		}
 	}
 

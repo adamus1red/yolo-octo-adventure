@@ -11,11 +11,7 @@ import physics.Vect;
 
 public class Model extends Observable {
 
-	private ArrayList<LineSegment> lines;
 	private ArrayList<IGizmo> gizmos;
-	private ArrayList<Circle> circles;
-	private ArrayList<Circle> flipperCircles;
-
 	private Ball ball;
 	private Walls gws;
 	private float gravity;
@@ -23,33 +19,28 @@ public class Model extends Observable {
 	private double mu = 0.025;
 	private double mu2 = 0.00125;
 	private double deltaT = 0.05;
+	private ArrayList<Ball> balls;
 
 	public Model() {
 
 		// Ball position (250, 25) in pixels. Ball velocity (100, 100) pixels
 		// per tick
-		ball = new Ball(475, 25, 100, 100, "Gball1");
+		balls = new ArrayList<Ball>();
+		ball = new Ball(400, 25, 100, 100, "Gball1");
+		balls.add(ball);
 
 		// Wall size 500 x 500 pixels
 		gws = new Walls(0, 0, 500, 500);
 
-		// Lines added in Main
-		lines = new ArrayList<LineSegment>();
-
 		// Gizmos added
 		gizmos = new ArrayList<IGizmo>();
 
-		// circles added
-		circles = new ArrayList<Circle>();
-
-		// flippers circles
-		flipperCircles = new ArrayList<Circle>();
 	}
 
 	/**
 	 * Moves the ball by for at most 20 times a second
 	 */
-	public void moveBall() {
+	public void moveBalls(Ball ball) {
 
 		double moveTime = 0.05; // 0.05 = 20 times per second as per Gizmoball
 
@@ -65,7 +56,7 @@ public class Model extends Observable {
 			Vect velo = new Vect(frictionX, frictionY + 25);
 			ball.setVelo(velo);
 
-			CollisionDetails cd = timeUntilCollision();
+			CollisionDetails cd = timeUntilCollision(ball);
 			double tuc = cd.getTuc();
 			if (tuc > moveTime) {
 				// No collision ...
@@ -104,7 +95,7 @@ public class Model extends Observable {
 		return ball;
 	}
 
-	private CollisionDetails timeUntilCollision() {
+	private CollisionDetails timeUntilCollision(Ball ball) {
 		// Find Time Until Collision and also, if there is a collision, the new
 		// speed vector.
 		// Create a physics.Circle from Ball
@@ -116,6 +107,74 @@ public class Model extends Observable {
 		double shortestTime = Double.MAX_VALUE;
 		double time = 0.0;
 
+		// Time to collide with squares triangles and circles
+		for (IGizmo gz : this.getGizmos()) {
+			if (gz.getType().equals("Square")
+					|| gz.getType().equals("Triangle")
+					|| gz.getType().equals("Flipper")) {
+
+				for (LineSegment line : gz.getLines()) {
+					time = Geometry.timeUntilWallCollision(line, ballCircle,
+							ballVelocity);
+					if (time < shortestTime) {
+						shortestTime = time;
+						newVelo = Geometry.reflectWall(line, ball.getVelo(),
+								1.0);
+						gz.setColor();
+					}
+				}
+				for (Circle c1 : gz.getCircles()) {
+					time = Geometry.timeUntilCircleCollision(c1, ballCircle,
+							ballVelocity);
+					if (time < shortestTime) {
+						shortestTime = time;
+						newVelo = Geometry.reflectCircle(c1.getCenter(),
+								ballCircle.getCenter(), ballVelocity, 1.0);
+						gz.setColor();
+					}
+				}
+			} else if (gz.getType().equals("Circle")) {
+				for (Circle c : gz.getCircles()) {
+					time = Geometry.timeUntilCircleCollision(c, ballCircle,
+							ballVelocity);
+					if (time < shortestTime) {
+						shortestTime = time;
+						newVelo = Geometry.reflectCircle(c.getCenter(),
+								ballCircle.getCenter(), ballVelocity, 1.0);
+					}
+				}
+			} else if (gz.getType().equals("Absorber")) {
+				for (Circle c1 : gz.getCircles()) {
+					time = Geometry.timeUntilCircleCollision(c1, ballCircle,
+							ballVelocity);
+					}
+				for (LineSegment line : gz.getLines()) {
+					LineSegment ls = line;
+					time = Geometry.timeUntilWallCollision(ls, ballCircle,
+							ballVelocity);
+					if (time < shortestTime) {
+						if (gz.getType().equals("Absorber")) {
+							if (time < .05) {
+								for (int z = 0; z < balls.size(); z++) {
+									Ball b = balls.get(z);
+									if (b.equals(ball)) {
+										balls.remove(z);
+										balls.add(new Ball(gz.getXPos()
+												+ gz.getWidth() - 10, gz
+												.getYPos() - 5, 0, -1000,
+												"Gball1"));
+										System.out.println(ls.toString());
+									}
+								}
+							}
+						}
+						shortestTime = time;
+						newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
+					}
+				}
+			}
+		}
+
 		// Time to collide with 4 walls
 		ArrayList<LineSegment> lss = gws.getLineSegments();
 		for (LineSegment line : lss) {
@@ -124,39 +183,6 @@ public class Model extends Observable {
 			if (time < shortestTime) {
 				shortestTime = time;
 				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
-			}
-		}
-
-		// Time to collide with circles
-		for (Circle c : circles) {
-			time = Geometry.timeUntilCircleCollision(c, ballCircle,
-					ballVelocity);
-			if (time < shortestTime) {
-				shortestTime = time;
-				newVelo = Geometry.reflectCircle(c.getCenter(),
-						ballCircle.getCenter(), ballVelocity, 1.0);
-			}
-		}
-
-		// Time to collide with flipper circles
-		for (Circle fc : flipperCircles) {
-			time = Geometry.timeUntilCircleCollision(fc, ballCircle,
-					ballVelocity);
-			if (time < shortestTime) {
-				shortestTime = time;
-				newVelo = Geometry.reflectCircle(fc.getCenter(),
-						ballCircle.getCenter(), ballVelocity, 1.0);
-			}
-		}
-
-		// Time to collide with any vertical lines
-		for (LineSegment line : lines) {
-			LineSegment ls = line;
-			time = Geometry
-					.timeUntilWallCollision(ls, ballCircle, ballVelocity);
-			if (time < shortestTime) {
-				shortestTime = time;
-				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
 			}
 		}
 
@@ -180,88 +206,24 @@ public class Model extends Observable {
 		return ball;
 	}
 
-	public ArrayList<LineSegment> getLines() {
-		return lines;
-	}
-
-	public void addLine(LineSegment l) {
-		lines.add(l);
-	}
-
 	public void setBallSpeed(float x, float y) {
 		ball.setVelo(new Vect(x, y));
 	}
 
 	public void addGizmo(IGizmo g) {
 		gizmos.add(g);
+		this.setChanged();
 		this.notifyObservers();
 	}
 
 	public void setGizmo(ArrayList<IGizmo> gl) {
 		gizmos = gl;
+		this.setChanged();
 		this.notifyObservers();
 	}
 
 	public ArrayList<IGizmo> getGizmos() {
 		return gizmos;
-	}
-
-	public ArrayList<Circle> getCircles() {
-		return circles;
-	}
-
-	public void addCircles(Circle c) {
-		circles.add(c);
-		this.setChanged();
-		this.notifyObservers();
-	}
-
-	public void rotateGizmo(int x, int y) {
-		System.out.println("ping");
-		String tmpType = null, tmpName = null;
-		int tmpRot = 0, tmpX = 0, tmpY = 0;
-		for (int i = 0; i < gizmos.size(); i++) {
-			if ((gizmos.get(i).getXPos() >= x-25 && gizmos.get(i).getYPos() >= y-25)
-					&& !(gizmos.get(i).getXPos() > x + 25)
-					&& !(gizmos.get(i).getYPos() > y + 25)) {
-				tmpType = gizmos.get(i).getType();
-				tmpName = gizmos.get(i).getName();
-				tmpRot = gizmos.get(i).getRotation();
-				tmpX = gizmos.get(i).getXPos();
-				tmpY = gizmos.get(i).getYPos();
-				gizmos.remove(i);
-			}
-		}
-		IGizmo g;
-		if (tmpType.toUpperCase().equals("TRIANGLE")) {
-			g = new TriangleBumper(tmpX, tmpY, tmpName, this, tmpRot);
-			gizmos.add(g);
-		} else if (tmpType.toUpperCase().equals("SQUARE")) {
-			g = new SquareBumper(tmpX, tmpY, tmpName, this);
-			gizmos.add(g);
-		} else if (tmpType.toUpperCase().equals("CIRCLE")) {
-			g = new CircleBumper(tmpX, tmpY, tmpName, this);
-			gizmos.add(g);
-		} else if (tmpType.toUpperCase().equals("FLIPPER")) {
-			g = new Flipper(tmpX, tmpY, tmpName, this);
-			gizmos.add(g);
-		} else {
-			System.out.println("removed something don't know what though.");
-			System.err.println("Removed " + tmpType);
-		}
-		this.setChanged();
-		this.notifyObservers();
-
-	}
-
-	public void addFipperCircle(Circle c) {
-		flipperCircles.add(c);
-		this.setChanged();
-		this.notifyObservers();
-	}
-
-	public ArrayList<Circle> getFlipperCircles() {
-		return flipperCircles;
 	}
 
 	public float getGravity() {
@@ -296,11 +258,16 @@ public class Model extends Observable {
 		}
 	}
 
+	public void addBall(Ball b) {
+		balls.add(b);
+	}
+
+	public ArrayList<Ball> getBalls() {
+		return balls;
+	}
+
 	public void clearBoard() {
-		lines.clear();
-		circles.clear();
 		gizmos.clear();
-		flipperCircles.clear();
 		this.setChanged();
 		this.notifyObservers();
 	}

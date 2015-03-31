@@ -1,6 +1,10 @@
 package model;
 
 import java.awt.Color;
+import java.util.ArrayList;
+
+import physics.Circle;
+import physics.LineSegment;
 
 public interface IGizmo {
 
@@ -31,6 +35,12 @@ public interface IGizmo {
 	void setRotation(int r);
 
 	Color getColor();
+	
+	void setColor();
 
 	int getRadius();
+	
+	ArrayList<LineSegment> getLines();
+	
+	ArrayList<Circle> getCircles();
 }

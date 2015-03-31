@@ -1,10 +1,11 @@
 package model;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import physics.Circle;
 
-public class CircleBumper extends Gizmo implements IGizmo {
+public class CircleBumper extends Gizmo  {
 
 	private int radius = 12;
 	
@@ -13,20 +14,11 @@ public class CircleBumper extends Gizmo implements IGizmo {
 		super.setColor(Color.MAGENTA);
 		super.setName(n);
 		super.setType("Circle");
-		// add circle  then model can deal with collisions
-		m.addCircles(new Circle(x, y, radius));
-	}
-	
-	// used for the circles at the end of flippers
-	public CircleBumper(int x, int y, int r ,Color c, String n, Model m) {
-		super(x ,y);
-		this.radius = r;
-		super.setColor(c);
-		super.setName(n);
-		super.setType("Circle");
+		super.circles = new ArrayList<>();
 		
 		// add circle  then model can deal with collisions
-		m.addCircles(new Circle(x, y, r));
+		super.circles.add(new Circle(x, y, radius));
+		m.addGizmo(this);
 	}
 	@Override
 	public int getWidth() {

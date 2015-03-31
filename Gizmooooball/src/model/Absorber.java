@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import physics.Circle;
 import physics.LineSegment;
@@ -17,27 +18,24 @@ public class Absorber extends Gizmo implements IGizmo {
 		super.setName(n);
 		setColor(Color.PINK);
 		super.setType("Absorber");
-		
+		super.circles = new ArrayList<>();
+		super.lines = new ArrayList<>();
+
 		// vertical lines
-		m.addLine(new LineSegment(x, y, x, y + height));
-		m.addLine(new LineSegment(x + width, y, x + width, y + height));
+		super.lines.add(new LineSegment(x, y, x, y + height));
+		super.lines.add(new LineSegment(x + width, y, x + width, y + height));
 
 		// horizontal lines
-		m.addLine(new LineSegment(x, y, x + width, y));
-		m.addLine(new LineSegment(x, y + height, x + width, y + height));
+		super.lines.add(new LineSegment(x, y, x + width, y));
+		super.lines.add(new LineSegment(x, y + height, x + width, y + height));
 
 		// for ends of the lines
-		m.addCircles(new Circle(x, y, radius));
-		m.addCircles(new Circle(x, y + height, radius));
-		m.addCircles(new Circle(x + w, y, radius));
-		m.addCircles(new Circle(x + w, y + height, radius));
+		super.circles.add(new Circle(x, y, radius));
+		super.circles.add(new Circle(x, y + height, radius));
+		super.circles.add(new Circle(x + w, y, radius));
+		super.circles.add(new Circle(x + w, y + height, radius));
+		m.addGizmo(this);
 	}
-	
-	public void collide(){
-		
-	}
-	
-	
 
 	public int getWidth() {
 		return width;
@@ -46,6 +44,5 @@ public class Absorber extends Gizmo implements IGizmo {
 	public int getHeight() {
 		return height;
 	}
-	
-	
+
 }

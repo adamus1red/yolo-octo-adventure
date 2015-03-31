@@ -40,7 +40,6 @@ public class LoadState {
 
 			while ((currentLine = br.readLine()) != null) {
 				fRead.add(parser.parseIn(currentLine, model));
-				System.out.println(currentLine);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

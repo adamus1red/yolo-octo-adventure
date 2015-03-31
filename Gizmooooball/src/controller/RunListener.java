@@ -5,12 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import javax.swing.WindowConstants;
 
-import physics.Circle;
 import view.BuildGui;
 import view.GBallGui;
 import view.GetInput;
+import model.Ball;
 import model.Model;
 
 public class RunListener implements ActionListener {
@@ -32,7 +31,10 @@ public class RunListener implements ActionListener {
 	public final void actionPerformed(final ActionEvent e) {
 
 		if (e.getSource() == timer) {
-			model.moveBall();
+			for (int i=0; i<model.getBalls().size();i++){
+				Ball ball = model.getBalls().get(i);
+					model.moveBalls(ball);
+				}
 		} else {
 			switch (e.getActionCommand()) {
 			case "Start":
@@ -41,18 +43,15 @@ public class RunListener implements ActionListener {
 			case "Stop":
 				timer.stop();
 				break;
-			case "Tick":
-				model.moveBall();
-				break;
 			case "Load":
-				String in = gi.showPopup(
+				String in = gi.showOpenPopup(
 						"Please enter the path to the correct level to load",
 						model);
 				model.startLoad(in);
 				model.hasChanged();
 				break;
 			case "Save":
-				String out = gi.showPopup(
+				String out = gi.showSavePopup(
 						"Please enter the path to save the level to", model);
 				model.startSave(out);
 				model.hasChanged();

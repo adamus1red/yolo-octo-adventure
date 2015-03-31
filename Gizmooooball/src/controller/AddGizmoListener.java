@@ -24,50 +24,45 @@ public class AddGizmoListener implements MouseListener {
 		this.type = type;
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-		int x = e.getX();
-		int y = e.getY();
-
+	public void addGizmo(int x, int y) {
 		switch (this.type) {
 		case "addSquare":
-			gizmo = new SquareBumper(x, y, "S" + Integer.toString(x)
+			gizmo = new SquareBumper(x - 1, y - 3, "S" + Integer.toString(x)
 					+ Integer.toString(y), model);
-			model.addGizmo(gizmo);
 			break;
 		case "addCircle":
-			gizmo = new CircleBumper(x, y, "C" + Integer.toString(x)
+			gizmo = new CircleBumper(x + 11, y + 9, "C" + Integer.toString(x)
 					+ Integer.toString(y), model);
-			model.addGizmo(gizmo);
 			break;
 		case "addTriangle":
-			gizmo = new TriangleBumper(x, y, "T"
-					+ Integer.toString(x) + Integer.toString(y), model);
-			model.addGizmo(gizmo);
+			gizmo = new TriangleBumper(x, y - 3, "T" + Integer.toString(x)
+					+ Integer.toString(y), model);
 			break;
 		case "addAbsorber":
-			gizmo = new Absorber(x, y, 500, 25, "A"
-					+ Integer.toString(x) + Integer.toString(y), model);
-			model.addGizmo(gizmo);
+			gizmo = new Absorber(x - 1, y - 3, 500, 25, "A" + Integer.toString(x)
+					+ Integer.toString(y), model);
 			break;
 		case "addLeftFlipper":
-			gizmo = new Flipper(x, y, "LF" + Integer.toString(x)
+			gizmo = new Flipper(x, y + 5, "LF" + Integer.toString(x)
 					+ Integer.toString(y), model);
-			model.addGizmo(gizmo);
 			break;
 		case "addRightFlipper":
-			gizmo = new Flipper(x, y, "RF" + Integer.toString(x)
+			gizmo = new Flipper(x + 8, y + 5, "RF" + Integer.toString(x)
 					+ Integer.toString(y), model);
-			model.addGizmo(gizmo);
 			break;
 		}
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void mouseClicked(MouseEvent e) {
+	}
 
+	@Override
+	public void mousePressed(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+
+		addGizmo(x, y);
 	}
 
 	@Override
