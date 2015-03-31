@@ -124,6 +124,12 @@ public class BuildGui implements GBallGui {
 		clearBoard.addActionListener(listener);
 		clearBoard.setMaximumSize(new Dimension(100, 100));
 		leftPanel.add(clearBoard);
+		
+		JButton rotateGizmo = new JButton("Rotate Gizmo");
+		rotateGizmo.setFont(font);
+		rotateGizmo.addActionListener(listener);
+		rotateGizmo.setMaximumSize(new Dimension(100, 100));
+		leftPanel.add(rotateGizmo);
 	}
 
 	@Override

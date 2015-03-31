@@ -24,6 +24,10 @@ public class BuildGui implements GBallGui {
 	private final Font font = new Font("Arial", Font.BOLD, 12);
 	JMenuBar menuBar;
 	JPanel leftPanel;
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 	BuildListener bl;
 
 	public BuildGui(Model m) {
@@ -123,6 +127,15 @@ public class BuildGui implements GBallGui {
 		clearBoard.addActionListener(listener);
 		clearBoard.setMaximumSize(new Dimension(100, 100));
 		leftPanel.add(clearBoard);
+<<<<<<< HEAD
+=======
+		
+		JButton rotateGizmo = new JButton("Rotate Gizmo");
+		rotateGizmo.setFont(font);
+		rotateGizmo.addActionListener(listener);
+		rotateGizmo.setMaximumSize(new Dimension(100, 100));
+		leftPanel.add(rotateGizmo);
+>>>>>>> origin/master
 	}
 
 	@Override
@@ -134,17 +147,29 @@ public class BuildGui implements GBallGui {
 
 		JMenuItem load = new JMenuItem("Load", 'L');
 		load.setToolTipText("Load a level");
+<<<<<<< HEAD
 		 load.addActionListener(listener);
+=======
+		// load.addActionListener();
+>>>>>>> origin/master
 		fileMenu.add(load);
 
 		JMenuItem save = new JMenuItem("Save", 'S');
 		save.setToolTipText("Save Game");
+<<<<<<< HEAD
 		 save.addActionListener(listener);
+=======
+		// save.addActionListener();
+>>>>>>> origin/master
 		fileMenu.add(save);
 
 		JMenuItem quit = new JMenuItem("Quit", 'Q');
 		quit.setToolTipText("Quit Game");
+<<<<<<< HEAD
 		quit.addActionListener(listener);
+=======
+		// save.addActionListener();
+>>>>>>> origin/master
 		fileMenu.add(quit);
 
 		menu.add(fileMenu);

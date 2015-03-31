@@ -1,7 +1,10 @@
 package model;
 
 import java.awt.Color;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> origin/master
 
 import physics.Circle;
 import physics.LineSegment;

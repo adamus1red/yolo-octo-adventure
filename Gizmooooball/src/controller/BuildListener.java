@@ -30,6 +30,7 @@ public class BuildListener implements ActionListener {
 	private JFrame frame;
 	private AddGizmoListener agl;
 	private RemoveGizmoListener rgl;
+	private RotateGizmoListener rotate;
 	private Timer timer;
 	private BuildBoard b;
 
@@ -38,10 +39,9 @@ public class BuildListener implements ActionListener {
 		this.b = b;
 		this.frame = frame;
 		this.timer = new Timer(50, this);
-		agl = new AddGizmoListener(model);
-		rgl = new RemoveGizmoListener(model);
-//		b.addMouseListener(agl);
-//		frame.getContentPane().addMouseListener(agl);
+		agl = new AddGizmoListener(m);
+		rgl = new RemoveGizmoListener(m);
+		rotate = new RotateGizmoListener(m);
 	}
 
 	@Override
@@ -55,8 +55,9 @@ public class BuildListener implements ActionListener {
 				timer.start();
 				break;
 			case "Remove Gizmo":
-				b.addMouseListener(rgl);
+				b.removeMouseListener(rotate);
 				b.removeMouseListener(agl);
+				b.addMouseListener(rgl);
 				break;
 			case "Switch Mode":
 				timer.stop();
@@ -73,8 +74,15 @@ public class BuildListener implements ActionListener {
 			case "Quit":
 				System.exit(0);
 				break;
+			case "Rotate Gizmo":
+				System.err.println("FUCKING WORK");
+				b.removeMouseListener(agl);
+				b.removeMouseListener(rgl);
+				b.addMouseListener(rotate);
+				System.err.println("Something fucking worked");
 			default:
 				b.removeMouseListener(rgl);
+				b.removeMouseListener(rotate);
 				b.addMouseListener(agl);
 				agl.setType(e.getActionCommand());
 				break;

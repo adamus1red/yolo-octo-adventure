@@ -44,7 +44,12 @@ public class SquareBumper extends Gizmo {
 	public int getHeight() {
 		return height;
 	}
+<<<<<<< HEAD
 	public void setColor(){
 		super.setColor(Color.BLUE);
 	}
+=======
+	
+
+>>>>>>> origin/master
 }

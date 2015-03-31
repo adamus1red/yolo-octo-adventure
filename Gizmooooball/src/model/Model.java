@@ -15,6 +15,7 @@ public class Model extends Observable {
 	private ArrayList<IGizmo> gizmos;
 	private ArrayList<Circle> circles;
 	private ArrayList<Circle> flipperCircles;
+
 	private Ball ball;
 	private Walls gws;
 	private float gravity;
@@ -163,11 +164,11 @@ public class Model extends Observable {
 	}
 
 	public void removeGizmo(int x, int y) {
+		System.out.println("Remove called at: " + x + " " + y);
 		for (int i = 0; i < gizmos.size(); i++) {
-			if (gizmos.get(i).getXPos() == x
-					|| gizmos.get(i).getXPos() == x + 25
-					&& gizmos.get(i).getYPos() == y
-					|| gizmos.get(i).getYPos() == y + 25) {
+			if ((gizmos.get(i).getXPos() >= x-25 && gizmos.get(i).getYPos() >= y-25)
+					&& !(gizmos.get(i).getXPos() > x + 25)
+					&& !(gizmos.get(i).getYPos() > y + 25)) {
 				gizmos.remove(i);
 			}
 		}
@@ -213,6 +214,44 @@ public class Model extends Observable {
 		circles.add(c);
 		this.setChanged();
 		this.notifyObservers();
+	}
+
+	public void rotateGizmo(int x, int y) {
+		System.out.println("ping");
+		String tmpType = null, tmpName = null;
+		int tmpRot = 0, tmpX = 0, tmpY = 0;
+		for (int i = 0; i < gizmos.size(); i++) {
+			if ((gizmos.get(i).getXPos() >= x-25 && gizmos.get(i).getYPos() >= y-25)
+					&& !(gizmos.get(i).getXPos() > x + 25)
+					&& !(gizmos.get(i).getYPos() > y + 25)) {
+				tmpType = gizmos.get(i).getType();
+				tmpName = gizmos.get(i).getName();
+				tmpRot = gizmos.get(i).getRotation();
+				tmpX = gizmos.get(i).getXPos();
+				tmpY = gizmos.get(i).getYPos();
+				gizmos.remove(i);
+			}
+		}
+		IGizmo g;
+		if (tmpType.toUpperCase().equals("TRIANGLE")) {
+			g = new TriangleBumper(tmpX, tmpY, tmpName, this, tmpRot);
+			gizmos.add(g);
+		} else if (tmpType.toUpperCase().equals("SQUARE")) {
+			g = new SquareBumper(tmpX, tmpY, tmpName, this);
+			gizmos.add(g);
+		} else if (tmpType.toUpperCase().equals("CIRCLE")) {
+			g = new CircleBumper(tmpX, tmpY, tmpName, this);
+			gizmos.add(g);
+		} else if (tmpType.toUpperCase().equals("FLIPPER")) {
+			g = new Flipper(tmpX, tmpY, tmpName, this);
+			gizmos.add(g);
+		} else {
+			System.out.println("removed something don't know what though.");
+			System.err.println("Removed " + tmpType);
+		}
+		this.setChanged();
+		this.notifyObservers();
+
 	}
 
 	public void addFipperCircle(Circle c) {

@@ -35,10 +35,11 @@ public class Gizmo implements IGizmo {
 		// TODO Auto-generated method stub
 		return color;
 	}
-	
+
 	public void setColor(Color c) {
 		color = c;
 	}
+
 	@Override
 	public void setName(String s) {
 		// TODO Auto-generated method stub
@@ -78,7 +79,15 @@ public class Gizmo implements IGizmo {
 
 	@Override
 	public void setRotation(int r) {
-		rotation = r;
+		int rot = r;
+		if (rot > 360) {
+			while (rot > 360) {
+				rot = rot - 360;
+			}
+		} else if (rot % 360 == 0) {
+			rot = 0;
+		}
+		rotation = rot;
 	}
 
 	@Override
@@ -95,19 +104,16 @@ public class Gizmo implements IGizmo {
 
 	@Override
 	public int getWidth() {
-		// TODO Auto-generated method stub
 		return 1;
 	}
 
 	@Override
 	public int getHeight() {
-		// TODO Auto-generated method stub
 		return 1;
 	}
 
 	@Override
 	public int getRotation() {
-		// TODO Auto-generated method stub
 		return rotation;
 	}
 
