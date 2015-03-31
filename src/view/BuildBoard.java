@@ -4,21 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-<<<<<<< HEAD
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-=======
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-
-import physics.Circle;
->>>>>>> origin/master
 import model.Ball;
 import model.IGizmo;
 import model.Model;
@@ -60,7 +49,6 @@ public class BuildBoard extends JPanel implements Observer {
 			g2.setColor(Color.BLACK);
 			g2.drawLine(0, i * h, width, i * h);
 		}
-<<<<<<< HEAD
 
 		for (IGizmo gz : buildModel.getGizmos()) {
 			switch (gz.getType()) {
@@ -82,10 +70,10 @@ public class BuildBoard extends JPanel implements Observer {
 				break;
 			case "Triangle":
 				g2.setColor(gz.getColor());
-				int[] xPoints = { gz.getXPos(), gz.getXPos(),
-						gz.getXPos() + gz.getWidth() };
-				int[] yPoints = { gz.getYPos(), gz.getYPos() + gz.getHeight(),
-						gz.getYPos() + gz.getHeight() };
+				int[] xPoints = { (int) gz.getLines().get(0).p1().x(), (int) gz.getLines().get(1).p1().x(),
+						(int) gz.getLines().get(2).p1().x() + gz.getWidth() };
+				int[] yPoints = { (int) gz.getLines().get(0).p2().y(), (int) gz.getLines().get(1).p2().y() + gz.getHeight(),
+						(int) gz.getLines().get(2).p2().y() + gz.getHeight() };
 				g2.fillPolygon(xPoints, yPoints, 3);
 				break;
 			case "Flipper":
@@ -109,54 +97,6 @@ public class BuildBoard extends JPanel implements Observer {
 				g2.fillOval(x, y, width, width);
 			}
 		}
-=======
-
-		for (IGizmo gz : buildModel.getGizmos()) {
-			if (gz.getType().equals("Square")) {
-				g2.setColor(gz.getColor());
-				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
-						gz.getHeight());
-			} else if (gz.getType().equals("Absorber")) {
-				g2.setColor(gz.getColor());
-				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
-						gz.getHeight());
-			} else if (gz.getType().equals("Circle")) {
-				g2.setColor(gz.getColor());
-				g2.fillOval(gz.getXPos() - gz.getRadius(),
-						gz.getYPos() - gz.getRadius(), gz.getRadius() * 2,
-						gz.getRadius() * 2);
-			} else if (gz.getType().equals("Triangle")) {
-				g2.setColor(gz.getColor());
-				int[] xPoints = { gz.getXPos(), gz.getXPos(),
-						gz.getXPos() + gz.getWidth() };
-				int[] yPoints = { gz.getYPos(), gz.getYPos() + gz.getHeight(),
-						gz.getYPos() + gz.getHeight() };
-				g2.fillPolygon(xPoints, yPoints, 3);
-			} else if (gz.getType().toLowerCase().contains("flipper")) {
-				g2.setColor(gz.getColor());
-				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
-						gz.getHeight());
-				ArrayList<Circle> gc = buildModel.getFlipperCircles();
-				for (int i = 0; i < gc.size(); i++) {
-					g2.fillOval((int) (gc.get(i).getCenter().x() - gc.get(i)
-							.getRadius()),
-							(int) (gc.get(i).getCenter().y() - gc.get(i)
-									.getRadius()),
-							(int) (gc.get(i).getRadius() * 2), (int) (gc.get(i)
-									.getRadius() * 2));
-				}
-			}
-		}
-		
-		Ball b = buildModel.getBall();
-		if (b != null) {
-			g2.setColor(b.getColour());
-			int x = (int) (b.getExactX() - b.getRadius());
-			int y = (int) (b.getExactY() - b.getRadius());
-			int width = (int) (2 * b.getRadius());
-			g2.fillOval(x, y, width, width);
-		}
->>>>>>> origin/master
 	}
 
 	@Override

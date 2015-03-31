@@ -23,25 +23,23 @@ public class TriangleBumper extends Gizmo {
 		super.setName(n);
 		super.setType("Triangle");
 		this.color = Color.ORANGE;
-		super.circles = new ArrayList<>();
-		super.lines = new ArrayList<>();
 		
 		// vertical lines
-		super.lines.add(new LineSegment(x, y, x, y + height));
+		super.addLines(new LineSegment(x, y, x, y + height));
 
 		// horizontal lines
-		super.lines.add(new LineSegment(x, y + height, x + width, y + height));
+		super.addLines(new LineSegment(x, y + height, x + width, y + height));
 
 		// diagonal lines
-		super.lines.add(new LineSegment(x, y, x + width, y + height));
+		super.addLines(new LineSegment(x, y, x + width, y + height));
 
 		// for ends of the lines
-		super.circles.add(new Circle(x, y, radius));
-		super.circles.add(new Circle(x, y + height, radius));
-		super.circles.add(new Circle(x + width, y + height, radius));
+		super.addCircles(new Circle(x, y, radius));
+		super.addCircles(new Circle(x, y + height, radius));
+		super.addCircles(new Circle(x + width, y + height, radius));
 		m.addGizmo(this);
 	}
-
+	
 	public TriangleBumper(int x, int y, String n, Model m, int rot) {
 		xpos = x;
 		ypos = y;
@@ -53,94 +51,98 @@ public class TriangleBumper extends Gizmo {
 		this.color = Color.ORANGE;
 		switch (super.getRotation()) {
 		case 90:
+			System.out.println("rotate?");
 			// vertical lines
-			m.addLine(new LineSegment(x, y, x, y + height));
+			super.addLines(new LineSegment(x, y, x, y + height));
 			// m.addLine(new VerticalLine(x+w-1,y,1,h));
 
 			// horizontal lines
 			// m.addLine(new VerticalLine(x, y, w, 1));
-			m.addLine(new LineSegment(x, y + height, x + width, y + height));
+			super.addLines(new LineSegment(x, y + height, x + width, y + height));
 
 			// diagonal lines
-			m.addLine(new LineSegment(x, y, x + width, y + height));
+			super.addLines(new LineSegment(x, y, x + width, y + height));
 
 			// for ends of the lines
-			m.addCircles(new Circle(x, y, radius));
+			super.addCircles(new Circle(x, y, radius));
 			// m.addCircles(new Circle(x, y + h, radius));
-			m.addCircles(new Circle(x, y + height, radius));
-			m.addCircles(new Circle(x + width, y + height, radius));
+			super.addCircles(new Circle(x, y + height, radius));
+			super.addCircles(new Circle(x + width, y + height, radius));
 			break;
 		case 180:
+			System.out.println("rotate :)");
 			// vertical lines
-			m.addLine(new LineSegment(x, y, x, y + height));
+			super.addLines(new LineSegment(x, y, x, y + height));
 			// m.addLine(new VerticalLine(x+w-1,y,1,h));
 
 			// horizontal lines
 			// m.addLine(new VerticalLine(x, y, w, 1));
-			m.addLine(new LineSegment(x, y, x + width, y));
+			super.addLines(new LineSegment(x, y, x + width, y));
 
 			// diagonal lines
-			m.addLine(new LineSegment(x + height, y + height, x + width, y));
+			super.addLines(new LineSegment(x + height, y + height, x + width, y));
 
 			// for ends of the lines
-			m.addCircles(new Circle(x, y, radius));
+			super.addCircles(new Circle(x, y, radius));
 			// m.addCircles(new Circle(x, y + h, radius));
-			m.addCircles(new Circle(x, y + height, radius));
-			m.addCircles(new Circle(x + width, y, radius));
+			super.addCircles(new Circle(x, y + height, radius));
+			super.addCircles(new Circle(x + width, y, radius));
 			break;
 		case 270:
+			System.out.println("rotate*");
 			// vertical lines
-			m.addLine(new LineSegment(x + width, y, x + width, y + height));
+			super.addLines(new LineSegment(x + width, y, x + width, y + height));
 			// m.addLine(new VerticalLine(x+w-1,y,1,h));
 
 			// horizontal lines
 			// m.addLine(new VerticalLine(x, y, w, 1));
-			m.addLine(new LineSegment(x, y, x + width, y));
+			super.addLines(new LineSegment(x, y, x + width, y));
 
 			// diagonal lines
-			m.addLine(new LineSegment(x, y, x + width, y + height));
+			super.addLines(new LineSegment(x, y, x + width, y + height));
 
 			// for ends of the lines
-			m.addCircles(new Circle(x, y, radius));
+			super.addCircles(new Circle(x, y, radius));
 			// m.addCircles(new Circle(x, y + h, radius));
-			m.addCircles(new Circle(x + width, y, radius));
-			m.addCircles(new Circle(x + width, y + height, radius));
+			super.addCircles(new Circle(x + width, y, radius));
+			super.addCircles(new Circle(x + width, y + height, radius));
 			break;
 		case 0:
+			System.out.println("rotate!");
 			// vertical lines
-			m.addLine(new LineSegment(x + width, y, x + width, y + height));
+			super.addLines(new LineSegment(x + width, y, x + width, y + height));
 			// m.addLine(new VerticalLine(x+w-1,y,1,h));
 
 			// horizontal lines
 			// m.addLine(new VerticalLine(x, y, w, 1));
-			m.addLine(new LineSegment(x, y + height, x + width, y + height));
+			super.addLines(new LineSegment(x, y + height, x + width, y + height));
 
 			// diagonal lines
-			m.addLine(new LineSegment(x + height, y + height, x + width, y));
+			super.addLines(new LineSegment(x + height, y + height, x + width, y));
 
 			// for ends of the lines
-			m.addCircles(new Circle(x, y + height, radius));
+			super.addCircles(new Circle(x, y + height, radius));
 			// m.addCircles(new Circle(x, y + h, radius));
-			m.addCircles(new Circle(x + width, y + height, radius));
-			m.addCircles(new Circle(x + width, y, radius));
+			super.addCircles(new Circle(x + width, y + height, radius));
+			super.addCircles(new Circle(x + width, y, radius));
 			break;
 		default:
 			// vertical lines
-			m.addLine(new LineSegment(x, y, x, y + height));
+			super.addLines(new LineSegment(x, y, x, y + height));
 			// m.addLine(new VerticalLine(x+w-1,y,1,h));
 
 			// horizontal lines
 			// m.addLine(new VerticalLine(x, y, w, 1));
-			m.addLine(new LineSegment(x, y + height, x + width, y + height));
+			super.addLines(new LineSegment(x, y + height, x + width, y + height));
 
 			// diagonal lines
-			m.addLine(new LineSegment(x, y, x + width, y + height));
+			super.addLines(new LineSegment(x, y, x + width, y + height));
 
 			// for ends of the lines
-			m.addCircles(new Circle(x, y, radius));
+			super.addCircles(new Circle(x, y, radius));
 			// m.addCircles(new Circle(x, y + h, radius));
-			m.addCircles(new Circle(x, y + height, radius));
-			m.addCircles(new Circle(x + width, y + height, radius));
+			super.addCircles(new Circle(x, y + height, radius));
+			super.addCircles(new Circle(x + width, y + height, radius));
 			break;
 		}
 	}
@@ -183,14 +185,8 @@ public class TriangleBumper extends Gizmo {
 	public Color getColor() {
 		return color;
 	}
-<<<<<<< HEAD
 	
 	public void setColor(){
 		this.color = Color.CYAN;
-=======
-
-	public void clearLevel() {
-
->>>>>>> origin/master
 	}
 }

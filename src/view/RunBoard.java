@@ -42,12 +42,8 @@ public class RunBoard extends JPanel implements Observer {
 
 		Graphics2D g2 = (Graphics2D) g;
 		for (IGizmo gz : gm.getGizmos()) {
-<<<<<<< HEAD
 			switch (gz.getType()) {
 			case "Square":
-=======
-			if (gz.getType().equals("Square")) {
->>>>>>> origin/master
 				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
@@ -73,7 +69,6 @@ public class RunBoard extends JPanel implements Observer {
 				break;
 			case "Flipper":
 				g2.setColor(gz.getColor());
-<<<<<<< HEAD
 				g2.fillRoundRect(gz.getXPos(), gz.getYPos()
 						- (gz.getWidth() / 2), gz.getWidth(), gz.getHeight()
 						+ gz.getWidth(), gz.getWidth(), gz.getWidth());
@@ -91,35 +86,6 @@ public class RunBoard extends JPanel implements Observer {
 				int width = (int) (2 * b.getRadius());
 				g2.fillOval(x, y, width, width);
 			}
-=======
-				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
-						gz.getHeight());
-				ArrayList<Circle> gc = gm.getFlipperCircles();
-				for (int i = 0; i < gc.size(); i++) {
-					g2.fillOval((int) (gc.get(i).getCenter().x() - gc.get(i)
-							.getRadius()),
-							(int) (gc.get(i).getCenter().y() - gc.get(i)
-									.getRadius()),
-							(int) (gc.get(i).getRadius() * 2), (int) (gc.get(i)
-									.getRadius() * 2));
-				}
-			}
-		}
-
-		// Debug for showing all generated lines
-		// for (LineSegment l : gm.getLines()) {
-		// g2.drawLine((int) l.p1().x(), (int) l.p1().y(), (int) l.p2().x(),
-		// (int) l.p2().y());
-		// }
-
-		Ball b = gm.getBall();
-		if (b != null) {
-			g2.setColor(b.getColour());
-			int x = (int) (b.getExactX() - b.getRadius());
-			int y = (int) (b.getExactY() - b.getRadius());
-			int width = (int) (2 * b.getRadius());
-			g2.fillOval(x, y, width, width);
->>>>>>> origin/master
 		}
 	}
 

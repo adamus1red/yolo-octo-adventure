@@ -5,12 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import javax.swing.WindowConstants;
 
-<<<<<<< HEAD
-=======
-import physics.Circle;
->>>>>>> origin/master
 import view.BuildGui;
 import view.GBallGui;
 import view.GetInput;
@@ -49,22 +44,14 @@ public class RunListener implements ActionListener {
 				timer.stop();
 				break;
 			case "Load":
-<<<<<<< HEAD
 				String in = gi.showOpenPopup(
-=======
-				String in = gi.showPopup(
->>>>>>> origin/master
 						"Please enter the path to the correct level to load",
 						model);
 				model.startLoad(in);
 				model.hasChanged();
 				break;
 			case "Save":
-<<<<<<< HEAD
 				String out = gi.showSavePopup(
-=======
-				String out = gi.showPopup(
->>>>>>> origin/master
 						"Please enter the path to save the level to", model);
 				model.startSave(out);
 				model.hasChanged();

@@ -24,38 +24,18 @@ public class RemoveGizmoListener implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-<<<<<<< HEAD
-=======
-		// TODO Auto-generated method stub
-		
->>>>>>> origin/master
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-<<<<<<< HEAD
-=======
-		// TODO Auto-generated method stub
-		
->>>>>>> origin/master
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-<<<<<<< HEAD
-=======
-		// TODO Auto-generated method stub
-		
->>>>>>> origin/master
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-<<<<<<< HEAD
-=======
-		// TODO Auto-generated method stub
-		
->>>>>>> origin/master
 	}
 
 }

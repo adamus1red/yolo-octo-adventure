@@ -24,19 +24,12 @@ public class RotateGizmoListener implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		System.out.println("OMG IT WORKED!!!!!" + x + ' ' + y);
-		model.rotateGizmo(x, y);
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		System.out.println("OMG IT WORKED!!!!!" + x + ' ' + y);
-		model.rotateGizmo(x, y);
+
 		
 	}
 

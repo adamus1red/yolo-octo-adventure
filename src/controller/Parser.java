@@ -34,49 +34,29 @@ public class Parser {
 					"^CIRCLE|TRIANGLE|SQUARE|(RIGHT|LEFT)FLIPPER")) {
 				if (s[0].toUpperCase().equals("CIRCLE")) {
 					if (checkName(s[1])) {
-<<<<<<< HEAD
 						g = new CircleBumper(Integer.parseInt(s[2]) * 25,
 								Integer.parseInt(s[3]) * 25, s[1], model);
-=======
-						g = new CircleBumper(Integer.parseInt(s[2])*25,
-								Integer.parseInt(s[3])*25, s[1], model);
->>>>>>> origin/master
 					} else {
 						throw new Exception("Bad name");
 					}
 				} else if (s[0].toUpperCase().equals("TRIANGLE")) {
 					if (checkName(s[1])) {
-<<<<<<< HEAD
 						g = new TriangleBumper(Integer.parseInt(s[2]) * 25,
 								Integer.parseInt(s[3]) * 25, s[1], model);
-=======
-						g = new TriangleBumper(Integer.parseInt(s[2])*25,
-								Integer.parseInt(s[3])*25, s[1], model);
->>>>>>> origin/master
 					} else {
 						throw new Exception("Bad name");
 					}
 				} else if (s[0].toUpperCase().equals("SQUARE")) {
 					if (checkName(s[1])) {
-<<<<<<< HEAD
 						g = new SquareBumper(Integer.parseInt(s[2]) * 25,
 								Integer.parseInt(s[3]) * 25, s[1], model);
-=======
-						g = new SquareBumper(Integer.parseInt(s[2])*25,
-								Integer.parseInt(s[3])*25, s[1], model);
->>>>>>> origin/master
 					} else {
 						throw new Exception("Bad name");
 					}
 				} else if (s[0].toUpperCase().contains("FLIPPER")) {
 					if (checkName(s[1])) {
-<<<<<<< HEAD
 						g = new Flipper(Integer.parseInt(s[2]) * 25,
 								Integer.parseInt(s[3]) * 25, s[1], model);
-=======
-						g = new Flipper(Integer.parseInt(s[2])*25,
-								Integer.parseInt(s[3])*25, s[1], model);
->>>>>>> origin/master
 					} else {
 						throw new Exception("Bad name");
 					}
@@ -91,17 +71,10 @@ public class Parser {
 				}
 			} else if (s[0].toUpperCase().equals("ABSORBER")) {
 				if (checkName(s[1])) { // Check name matches expected format
-<<<<<<< HEAD
 					int x = Integer.parseInt(s[2]) * 25;
 					int y = Integer.parseInt(s[3]) * 25;
 					int w = x + Integer.parseInt(s[4]) * 25;
 					int v = y + Integer.parseInt(s[5]) * 25;
-=======
-					int x = Integer.parseInt(s[2])*25;
-					int y = Integer.parseInt(s[3])*25;
-					int w = x + Integer.parseInt(s[4])*25;
-					int v = y + Integer.parseInt(s[5])*25;
->>>>>>> origin/master
 					g = new Absorber(x, y, w, v, s[1], model);
 				} else {
 					throw new Exception("Bad name");

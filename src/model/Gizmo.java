@@ -14,8 +14,8 @@ public class Gizmo implements IGizmo {
 	private int xPos;
 	private int yPos;
 	private int rotation = 90;
-	protected ArrayList<Circle> circles;
-	protected ArrayList<LineSegment> lines;
+	private ArrayList<Circle> circles;
+	private ArrayList<LineSegment> lines;
 
 	public Gizmo(int x, int y) {
 		xPos = x;
@@ -23,12 +23,17 @@ public class Gizmo implements IGizmo {
 		name = null;
 		color = Color.CYAN;
 		type = null;
+
+		circles = new ArrayList<Circle>();
+		lines = new ArrayList<LineSegment>();
 	}
 
 	public Gizmo() {
 		name = null;
 		color = new Color(0);
 		type = null;
+		circles = new ArrayList<Circle>();
+		lines = new ArrayList<LineSegment>();
 	}
 
 	public Color getColor() {
@@ -104,16 +109,19 @@ public class Gizmo implements IGizmo {
 
 	@Override
 	public int getWidth() {
+		// TODO Auto-generated method stub
 		return 1;
 	}
 
 	@Override
 	public int getHeight() {
+		// TODO Auto-generated method stub
 		return 1;
 	}
 
 	@Override
 	public int getRotation() {
+		// TODO Auto-generated method stub
 		return rotation;
 	}
 
@@ -128,6 +136,10 @@ public class Gizmo implements IGizmo {
 		return lines;
 	}
 
+	public void addLines(LineSegment l) {
+		lines.add(l);
+	}
+
 	@Override
 	public ArrayList<Circle> getCircles() {
 		return circles;
@@ -136,6 +148,10 @@ public class Gizmo implements IGizmo {
 	@Override
 	public void setColor() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	public void addCircles(Circle circle) {
+		circles.add(circle);
 	}
 }
