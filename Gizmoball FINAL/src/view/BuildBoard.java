@@ -70,10 +70,10 @@ public class BuildBoard extends JPanel implements Observer {
 				break;
 			case "Triangle":
 				g2.setColor(gz.getColor());
-				int[] xPoints = { gz.getXPos(), gz.getXPos(),
-						gz.getXPos() + gz.getWidth() };
-				int[] yPoints = { gz.getYPos(), gz.getYPos() + gz.getHeight(),
-						gz.getYPos() + gz.getHeight() };
+				int[] xPoints = { (int) gz.getLines().get(0).p1().x(), (int) gz.getLines().get(1).p1().x(),
+						(int) gz.getLines().get(2).p1().x() + gz.getWidth() };
+				int[] yPoints = { (int) gz.getLines().get(0).p2().y(), (int) gz.getLines().get(1).p2().y() + gz.getHeight(),
+						(int) gz.getLines().get(2).p2().y() + gz.getHeight() };
 				g2.fillPolygon(xPoints, yPoints, 3);
 				break;
 			case "Flipper":
