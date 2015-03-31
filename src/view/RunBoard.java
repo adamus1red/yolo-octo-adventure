@@ -7,16 +7,12 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-
 import physics.Circle;
-import physics.LineSegment;
 import model.Ball;
 import model.IGizmo;
 import model.Model;
-import model.VerticalLine;
 
 public class RunBoard extends JPanel implements Observer {
 
@@ -36,24 +32,17 @@ public class RunBoard extends JPanel implements Observer {
 	}
 
 	// Fix onscreen size
+	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(width, height);
 	}
 
-	/**
-	 * Does magic
-	 * @param g
-	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
 		for (IGizmo gz : gm.getGizmos()) {
-			 if (gz.getType().equals("Square")) {
-					g2.setColor(gz.getColor());
-					g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
-							gz.getHeight());
-			 }else if (gz.getType().equals("Square")) {
+			if (gz.getType().equals("Square")) {
 				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
@@ -77,10 +66,7 @@ public class RunBoard extends JPanel implements Observer {
 				g2.setColor(gz.getColor());
 				g2.fillRect(gz.getXPos(), gz.getYPos(), gz.getWidth(),
 						gz.getHeight());
-				// g2.fillOval(gz.getXPos() - gz.getRadius(),
-				// gz.getYPos() - gz.getRadius(), gz.getRadius() * 2,
-				// gz.getRadius() * 2);
-				ArrayList<Circle> gc = gm.getCircles();
+				ArrayList<Circle> gc = gm.getFlipperCircles();
 				for (int i = 0; i < gc.size(); i++) {
 					g2.fillOval((int) (gc.get(i).getCenter().x() - gc.get(i)
 							.getRadius()),
@@ -93,20 +79,18 @@ public class RunBoard extends JPanel implements Observer {
 		}
 
 		// Debug for showing all generated lines
-//		for (LineSegment l : gm.getLines()) {
-//			g2.drawLine((int) l.p1().x(), (int) l.p1().y(), (int) l.p2().x(),
-//					(int) l.p2().y());
-//		}
-		for(int i = 0; i <gm.getBalls().size(); i++){
-			
-		Ball b = gm.getBalls().get(i);
+		// for (LineSegment l : gm.getLines()) {
+		// g2.drawLine((int) l.p1().x(), (int) l.p1().y(), (int) l.p2().x(),
+		// (int) l.p2().y());
+		// }
+
+		Ball b = gm.getBall();
 		if (b != null) {
 			g2.setColor(b.getColour());
 			int x = (int) (b.getExactX() - b.getRadius());
 			int y = (int) (b.getExactY() - b.getRadius());
 			int width = (int) (2 * b.getRadius());
 			g2.fillOval(x, y, width, width);
-		}
 		}
 	}
 

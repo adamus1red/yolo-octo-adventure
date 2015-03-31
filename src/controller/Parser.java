@@ -34,29 +34,29 @@ public class Parser {
 					"^CIRCLE|TRIANGLE|SQUARE|LEFTFLIPPER|RIGHTFLIPPER")) {
 				if (s[0].toUpperCase().equals("CIRCLE")) {
 					if (checkName(s[1])) {
-						g = new CircleBumper(Integer.parseInt(s[2]),
-								Integer.parseInt(s[3]), s[1], model);
+						g = new CircleBumper(Integer.parseInt(s[2])*25,
+								Integer.parseInt(s[3])*25, s[1], model);
 					} else {
 						throw new Exception("Bad name");
 					}
 				} else if (s[0].toUpperCase().equals("TRIANGLE")) {
 					if (checkName(s[1])) {
-						g = new TriangleBumper(Integer.parseInt(s[2]),
-								Integer.parseInt(s[3]), s[1], model);
+						g = new TriangleBumper(Integer.parseInt(s[2])*25,
+								Integer.parseInt(s[3])*25, s[1], model);
 					} else {
 						throw new Exception("Bad name");
 					}
 				} else if (s[0].toUpperCase().equals("SQUARE")) {
 					if (checkName(s[1])) {
-						g = new SquareBumper(Integer.parseInt(s[2]),
-								Integer.parseInt(s[3]), s[1], model);
+						g = new SquareBumper(Integer.parseInt(s[2])*25,
+								Integer.parseInt(s[3])*25, s[1], model);
 					} else {
 						throw new Exception("Bad name");
 					}
 				} else if (s[0].toUpperCase().contains("FLIPPER")) {
 					if (checkName(s[1])) {
-						g = new Flipper(Integer.parseInt(s[2]),
-								Integer.parseInt(s[3]), s[1], model);
+						g = new Flipper(Integer.parseInt(s[2])*25,
+								Integer.parseInt(s[3])*25, s[1], model);
 					} else {
 						throw new Exception("Bad name");
 					}
@@ -71,10 +71,10 @@ public class Parser {
 				}
 			} else if (s[0].toUpperCase().equals("ABSORBER")) {
 				if (checkName(s[1])) { // Check name matches expected format
-					int x = Integer.parseInt(s[2]);
-					int y = Integer.parseInt(s[3]);
-					int w = x + Integer.parseInt(s[4]);
-					int v = y + Integer.parseInt(s[5]);
+					int x = Integer.parseInt(s[2])*25;
+					int y = Integer.parseInt(s[3])*25;
+					int w = x + Integer.parseInt(s[4])*25;
+					int v = y + Integer.parseInt(s[5])*25;
 					g = new Absorber(x, y, w, v, s[1], model);
 				} else {
 					throw new Exception("Bad name");

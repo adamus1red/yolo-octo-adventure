@@ -3,25 +3,29 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.Timer;
+import javax.swing.WindowConstants;
 
+import physics.Circle;
+import view.BuildGui;
+import view.GBallGui;
 import view.GetInput;
 import model.Model;
-
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
 
 public class RunListener implements ActionListener {
 
 	private Timer timer;
 	private Model model;
+	GBallGui bg;
 	private GetInput gi;
-	
-	public RunListener(Model m) {
+	private JFrame frame;
+
+	public RunListener(Model m, JFrame frame) {
 		model = m;
 		timer = new Timer(50, this);
 		gi = new GetInput();
+		this.frame = frame;
 	}
 
 	@Override
@@ -41,14 +45,25 @@ public class RunListener implements ActionListener {
 				model.moveBall();
 				break;
 			case "Load":
-				String in = gi.showOpenPopup("Please enter the path to the correct level to load", model);
+				String in = gi.showPopup(
+						"Please enter the path to the correct level to load",
+						model);
 				model.startLoad(in);
 				model.hasChanged();
 				break;
 			case "Save":
-				String out = gi.showSavePopup("Please enter the path to save the level to", model);
+				String out = gi.showPopup(
+						"Please enter the path to save the level to", model);
 				model.startSave(out);
 				model.hasChanged();
+				break;
+			case "Switch Mode":
+				timer.stop();
+				frame.setVisible(false);
+				frame.dispose();
+				bg = new BuildGui(model = new Model());
+				model.setBallSpeed(200, 200);
+				bg.createAndShowGUI();
 				break;
 			case "Quit":
 				System.exit(0);

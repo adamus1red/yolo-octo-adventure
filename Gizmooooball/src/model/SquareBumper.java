@@ -39,4 +39,6 @@ public class SquareBumper extends Gizmo implements IGizmo {
 	public int getHeight() {
 		return height;
 	}
+	
+
 }

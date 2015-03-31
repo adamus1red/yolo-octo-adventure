@@ -10,7 +10,6 @@ public class Flipper extends Gizmo implements IGizmo {
 	private final int width = 16;
 	private final int height = 35;
 	private final int radius = 0; // 10 for testing change to 0 when not
-	private Color color;
 
 	public Flipper(int x, int y, String n, Model m) {
 		super(x, y);
@@ -31,14 +30,9 @@ public class Flipper extends Gizmo implements IGizmo {
 		m.addCircles(new Circle(x + width, y, radius));
 		m.addCircles(new Circle(x + width, y + height, radius));
 
-		m.addCircles(new Circle(x + (width / 2), y, width / 2));
-		m.addCircles(new Circle(x + (width / 2), y + height, width / 2));
-
-		// for circles at the end of flipper
-		// m.addGizmo(new CircleBumper(x + width / 2, y, width / 2, this.color,
-		// this.getName(),m));
-		// m.addGizmo(new CircleBumper(x + width / 2, y + height, width / 2,
-		// this.color, this.getName(), m));
+		// for ends of flippers
+		m.addFipperCircle(new Circle(x + (width / 2), y, width / 2));
+		m.addFipperCircle(new Circle(x + (width / 2), y + height, width / 2));
 	}
 
 	public int getWidth() {

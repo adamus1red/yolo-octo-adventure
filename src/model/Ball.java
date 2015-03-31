@@ -2,8 +2,6 @@ package model;
 
 import java.awt.Color;
 
-
-
 import physics.Circle;
 import physics.Vect;
 
@@ -20,14 +18,14 @@ public class Ball implements IGizmo{
 	private String name;
 
 	// x, y coordinates and x,y velocity
-	public Ball(double x, double y, double xv, double yv) {
+	public Ball(double x, double y, double xv, double yv, String n) {
 		xpos = x;
 		ypos = y;
 		colour = Color.BLUE;
 		velocity = new Vect(xv, yv);
 		radius = 6;
 		stopped = false;
-	
+		setName(n);
 	}
 	
 	public void setName(String n) {
@@ -50,11 +48,7 @@ public class Ball implements IGizmo{
 		return new Circle(xpos, ypos, radius);
 
 	}
-	public Vect getCenter(){
-		return new Vect(xpos,ypos);
-		
-		
-	}
+	
 	public void setGravity(){
 		
 	}
