@@ -18,22 +18,20 @@ public class SquareBumper extends Gizmo {
 		super.setName(n);
 		super.setColor(Color.CYAN);
 		super.setType("Square");
-		super.circles = new ArrayList<>();
-		super.lines = new ArrayList<>();
 		
 		// vertical lines
-		super.lines.add(new LineSegment(x, y, x, y + height));
-		super.lines.add(new LineSegment(x + width, y, x + width, y + height));
+		super.addLines(new LineSegment(x, y, x, y + height));
+		super.addLines(new LineSegment(x + width, y, x + width, y + height));
 
 		// horizontal lines
-		super.lines.add(new LineSegment(x, y, x + width, y));
-		super.lines.add(new LineSegment(x, y + height, x + width, y + height));
+		super.addLines(new LineSegment(x, y, x + width, y));
+		super.addLines(new LineSegment(x, y + height, x + width, y + height));
 
 		// for ends of the lines
-		super.circles.add(new Circle(x, y, radius));
-		super.circles.add(new Circle(x, y + height, radius));
-		super.circles.add(new Circle(x + width, y, radius));
-		super.circles.add(new Circle(x + width, y + height, radius));
+		super.addCircles(new Circle(x, y, radius));
+		super.addCircles(new Circle(x, y + height, radius));
+		super.addCircles(new Circle(x + width, y, radius));
+		super.addCircles(new Circle(x + width, y + height, radius));
 		m.addGizmo(this);
 	}
 

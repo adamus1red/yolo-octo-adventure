@@ -23,6 +23,7 @@ public class BuildListener implements ActionListener {
 	private Timer timer;
 	private GetInput gi;
 	private BuildBoard b;
+	private RotateGizmoListener rotate;
 
 	public BuildListener(Model m, JFrame frame, BuildBoard b) {
 		model = m;
@@ -32,6 +33,7 @@ public class BuildListener implements ActionListener {
 		this.timer = new Timer(50, this);
 		agl = new AddGizmoListener(model);
 		rgl = new RemoveGizmoListener(model);
+		rotate = new RotateGizmoListener(model);
 	}
 
 	@Override
@@ -42,29 +44,24 @@ public class BuildListener implements ActionListener {
 					model.moveBalls(ball);
 				}
 		} else {
-
-			switch (e.getActionCommand()) {
-			case "Start":
+			String tmp = e.getActionCommand();
+			if (tmp == "Start") {
 				timer.start();
-				break;
-			case "Remove Gizmo":
-				b.removeMouseListener(agl);
+			} else if (tmp == "Remove Gizmo") {
+				removeListeners();
 				b.addMouseListener(rgl);
-				break;
-			case "Load":
+			}else if (tmp == "Load") {
 				String in = gi.showOpenPopup(
 						"Please enter the path to the correct level to load",
 						model);
 				model.startLoad(in);
 				model.hasChanged();
-				break;
-			case "Save":
+			}else if (tmp == "Save") {
 				String out = gi.showSavePopup(
 						"Please enter the path to save the level to", model);
 				model.startSave(out);
 				model.hasChanged();
-				break;
-			case "Switch Mode":
+			} else if (tmp == "Switch Mode") {
 				timer.stop();
 				frame.setVisible(false);
 				frame.dispose();
@@ -72,20 +69,25 @@ public class BuildListener implements ActionListener {
 				model.setBallSpeed(200, 200);
 				model.startLoad("LevelMurray.txt");
 				runGui.createAndShowGUI();
-				break;
-			case "Clear Board":
+			}else if (tmp == "Clear Board"){
 				model.clearBoard();
-				break;
-			case "Quit":
+			}else if (tmp == "Quit"){
 				System.exit(0);
-				break;
-			default :
-				b.removeMouseListener(rgl);
+			}else if (tmp == "Rotate Gizmo"){
+				System.err.println("FUCKING WORK");
+				removeListeners();
+				b.addMouseListener(rotate);
+				System.err.println("Something fucking worked");
+			}else if (tmp.matches("^add(Ball|Absorber|(Left|Right)Flipper|Circle|Square|Triangle)")) {
+				removeListeners();
 				agl.setType(e.getActionCommand());
 				b.addMouseListener(agl);
-				break;
 			}
-
 		}
+	}
+	private void removeListeners() {
+		b.removeMouseListener(rgl);
+		b.removeMouseListener(rotate);
+		b.removeMouseListener(agl);
 	}
 }

@@ -14,10 +14,9 @@ public class CircleBumper extends Gizmo  {
 		super.setColor(Color.MAGENTA);
 		super.setName(n);
 		super.setType("Circle");
-		super.circles = new ArrayList<>();
 		
 		// add circle  then model can deal with collisions
-		super.circles.add(new Circle(x, y, radius));
+		super.addCircles(new Circle(x, y, radius));
 		m.addGizmo(this);
 	}
 	@Override
